@@ -10,6 +10,9 @@ namespace robo
     {
         private string id;
 
-
+        public RequestJson(string id)
+        {
+            this.id = id;
+        }
     }
 }

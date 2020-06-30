@@ -27,27 +27,52 @@ namespace robo
 
         private void sendReqest_Click(object sender, EventArgs e)
         {
-            RequestJson json = new RequestJson();
+            RequestJson json = new RequestJson(uuid.Text);
 
-            httpRequest("URL", JsonConvert.SerializeObject(json));
+            log("указанный ключ: " + uuid.Text);
+
+            httpRequest("GET", "URL", JsonConvert.SerializeObject(json));
         }
         
-        private void httpRequest(string url, string json)
+        private void httpRequest(string method, string url, string json = "")
         {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            req.Method = "POST";
-            req.ContentType = "application/json";
-            using (var requestStream = req.GetRequestStream())
-            using (var streamWriter = new StreamWriter(requestStream))
+            
+            try
             {
-                streamWriter.Write(json);
-            }
+                HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+                req.Method = method;
+                if (method.Equals("POST") || method.Equals("PUT"))
+                {
+                    req.ContentType = "application/json";
+                    using (var requestStream = req.GetRequestStream())
+                    using (var streamWriter = new StreamWriter(requestStream))
+                    {
+                        streamWriter.Write(json);
+                    }
+                }
 
-            using (var responseStream = req.GetResponse().GetResponseStream())
-            using (var reader = new StreamReader(responseStream))
-            {
-                logBox.Text = logBox.Text + reader.ReadToEnd() + '\n';//ответ
+                using (var responseStream = req.GetResponse().GetResponseStream())
+                using (var reader = new StreamReader(responseStream))
+                {
+                    //logBox.Text = logBox.Text + reader.ReadToEnd() + '\n';//ответ
+                    log(reader.ReadToEnd());
+                }
             }
+            catch(Exception e)
+            {
+                log(e.Message);
+            }
+        }
+
+        private void myIP_Click(object sender, EventArgs e)
+        {
+            httpRequest("GET", "https://api.myip.com");
+        }
+
+        private void log(string text)
+        {
+            logBox.AppendText(text + Environment.NewLine);
+            logBox.ScrollToCaret();
         }
     }
 }
