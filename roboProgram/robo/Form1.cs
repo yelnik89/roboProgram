@@ -27,11 +27,19 @@ namespace robo
 
         private void sendReqest_Click(object sender, EventArgs e)
         {
-            RequestJson json = new RequestJson(uuid.Text);
+            if (port.Text.Equals(""))
+            {
+                log("не указан порт!!!");
+            }
+            else
+            {
+                RequestJson json = new RequestJson(uuid.Text);
 
-            log("указанный ключ: " + uuid.Text);
+                log("указанный ключ: " + uuid.Text);
 
-            httpRequest("GET", "URL", JsonConvert.SerializeObject(json));
+                httpRequest("GET", "URL:" + portLabel.Text, JsonConvert.SerializeObject(json));
+            }
+            
         }
         
         private void httpRequest(string method, string url, string json = "")

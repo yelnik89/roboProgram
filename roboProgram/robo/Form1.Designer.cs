@@ -33,6 +33,8 @@
             this.logBox = new System.Windows.Forms.RichTextBox();
             this.sendReqest = new System.Windows.Forms.Button();
             this.myIP = new System.Windows.Forms.Button();
+            this.port = new System.Windows.Forms.TextBox();
+            this.portLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -81,11 +83,29 @@
             this.myIP.UseVisualStyleBackColor = true;
             this.myIP.Click += new System.EventHandler(this.myIP_Click);
             // 
+            // port
+            // 
+            this.port.Location = new System.Drawing.Point(329, 16);
+            this.port.Name = "port";
+            this.port.Size = new System.Drawing.Size(100, 20);
+            this.port.TabIndex = 7;
+            // 
+            // portLabel
+            // 
+            this.portLabel.AutoSize = true;
+            this.portLabel.Location = new System.Drawing.Point(287, 19);
+            this.portLabel.Name = "portLabel";
+            this.portLabel.Size = new System.Drawing.Size(35, 13);
+            this.portLabel.TabIndex = 8;
+            this.portLabel.Text = "Порт:";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 368);
+            this.Controls.Add(this.portLabel);
+            this.Controls.Add(this.port);
             this.Controls.Add(this.myIP);
             this.Controls.Add(this.sendReqest);
             this.Controls.Add(this.logBox);
@@ -104,6 +124,8 @@
         private System.Windows.Forms.RichTextBox logBox;
         private System.Windows.Forms.Button sendReqest;
         private System.Windows.Forms.Button myIP;
+        private System.Windows.Forms.TextBox port;
+        private System.Windows.Forms.Label portLabel;
     }
 }
 
