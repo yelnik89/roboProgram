@@ -37,7 +37,7 @@ namespace robo
 
                 log("указанный ключ: " + uuid.Text);
 
-                httpRequest("GET", "URL:" + portLabel.Text, JsonConvert.SerializeObject(json));
+                httpRequest("GET", "192.168.0.235:" + portLabel.Text, JsonConvert.SerializeObject(json));
             }
             
         }
@@ -52,6 +52,7 @@ namespace robo
                 if (method.Equals("POST") || method.Equals("PUT"))
                 {
                     req.ContentType = "application/json";
+                    // req.Accept = ;
                     using (var requestStream = req.GetRequestStream())
                     using (var streamWriter = new StreamWriter(requestStream))
                     {
