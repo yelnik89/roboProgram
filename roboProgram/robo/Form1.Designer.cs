@@ -35,6 +35,8 @@
             this.myIP = new System.Windows.Forms.Button();
             this.port = new System.Windows.Forms.TextBox();
             this.portLabel = new System.Windows.Forms.Label();
+            this.ipLabel = new System.Windows.Forms.Label();
+            this.ip = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -49,23 +51,23 @@
             // 
             // uuid
             // 
-            this.uuid.Location = new System.Drawing.Point(12, 45);
+            this.uuid.Location = new System.Drawing.Point(89, 18);
             this.uuid.Name = "uuid";
-            this.uuid.Size = new System.Drawing.Size(310, 20);
+            this.uuid.Size = new System.Drawing.Size(233, 20);
             this.uuid.TabIndex = 3;
             // 
             // logBox
             // 
-            this.logBox.Location = new System.Drawing.Point(12, 73);
+            this.logBox.Location = new System.Drawing.Point(12, 84);
             this.logBox.Name = "logBox";
             this.logBox.ReadOnly = true;
-            this.logBox.Size = new System.Drawing.Size(310, 283);
+            this.logBox.Size = new System.Drawing.Size(310, 272);
             this.logBox.TabIndex = 4;
             this.logBox.Text = "";
             // 
             // sendReqest
             // 
-            this.sendReqest.Location = new System.Drawing.Point(328, 43);
+            this.sendReqest.Location = new System.Drawing.Point(329, 45);
             this.sendReqest.Name = "sendReqest";
             this.sendReqest.Size = new System.Drawing.Size(108, 23);
             this.sendReqest.TabIndex = 5;
@@ -85,25 +87,43 @@
             // 
             // port
             // 
-            this.port.Location = new System.Drawing.Point(329, 16);
+            this.port.Location = new System.Drawing.Point(253, 47);
             this.port.Name = "port";
-            this.port.Size = new System.Drawing.Size(100, 20);
+            this.port.Size = new System.Drawing.Size(69, 20);
             this.port.TabIndex = 7;
             // 
             // portLabel
             // 
             this.portLabel.AutoSize = true;
-            this.portLabel.Location = new System.Drawing.Point(287, 19);
+            this.portLabel.Location = new System.Drawing.Point(212, 50);
             this.portLabel.Name = "portLabel";
             this.portLabel.Size = new System.Drawing.Size(35, 13);
             this.portLabel.TabIndex = 8;
             this.portLabel.Text = "Порт:";
+            // 
+            // ipLabel
+            // 
+            this.ipLabel.AutoSize = true;
+            this.ipLabel.Location = new System.Drawing.Point(9, 50);
+            this.ipLabel.Name = "ipLabel";
+            this.ipLabel.Size = new System.Drawing.Size(20, 13);
+            this.ipLabel.TabIndex = 9;
+            this.ipLabel.Text = "IP:";
+            // 
+            // ip
+            // 
+            this.ip.Location = new System.Drawing.Point(35, 47);
+            this.ip.Name = "ip";
+            this.ip.Size = new System.Drawing.Size(171, 20);
+            this.ip.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(448, 368);
+            this.Controls.Add(this.ip);
+            this.Controls.Add(this.ipLabel);
             this.Controls.Add(this.portLabel);
             this.Controls.Add(this.port);
             this.Controls.Add(this.myIP);
@@ -126,6 +146,8 @@
         private System.Windows.Forms.Button myIP;
         private System.Windows.Forms.TextBox port;
         private System.Windows.Forms.Label portLabel;
+        private System.Windows.Forms.Label ipLabel;
+        private System.Windows.Forms.TextBox ip;
     }
 }
 

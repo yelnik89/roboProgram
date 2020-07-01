@@ -27,17 +27,21 @@ namespace robo
 
         private void sendReqest_Click(object sender, EventArgs e)
         {
-            if (port.Text.Equals(""))
+            if (ip.Text.Equals("") || port.Text.Equals(""))
             {
-                log("не указан порт!!!");
+                if(ip.Text.Equals("")) log("не указан IP!!!");
+                if(port.Text.Equals("")) log("не указан порт!!!");
             }
             else
             {
+                string address = ip.Text + ":" + port.Text;
+
                 RequestJson json = new RequestJson(uuid.Text);
 
                 log("указанный ключ: " + uuid.Text);
+                log(address);
 
-                httpRequest("GET", "192.168.0.235:" + portLabel.Text, JsonConvert.SerializeObject(json));
+                httpRequest("GET", "http://" + address, JsonConvert.SerializeObject(json));
             }
             
         }
