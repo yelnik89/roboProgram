@@ -53,6 +53,7 @@ namespace robo
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
                 req.Method = method;
+                req.Accept = uuid.Text;
                 if (method.Equals("POST") || method.Equals("PUT"))
                 {
                     req.ContentType = "application/json";
@@ -86,6 +87,10 @@ namespace robo
         {
             logBox.AppendText(text + Environment.NewLine);
             logBox.ScrollToCaret();
+            using (FileStream file = new FileStream("log.txt", FileMode.Append)){
+                byte[] array = System.Text.Encoding.Default.GetBytes(text + '\n');
+                file.Write(array, 0, array.Length);
+            }
         }
     }
 }
