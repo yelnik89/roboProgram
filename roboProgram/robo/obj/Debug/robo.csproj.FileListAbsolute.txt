@@ -17,10 +17,10 @@ E:\roboProg\roboProgram\robo\bin\Debug\robo.pdb
 E:\roboProg\roboProgram\robo\bin\Debug\Newtonsoft.Json.dll
 E:\roboProg\roboProgram\robo\bin\Debug\Newtonsoft.Json.xml
 E:\roboProg\roboProgram\robo\obj\Debug\robo.csprojAssemblyReference.cache
-E:\roboProg\roboProgram\robo\obj\Debug\robo.Form1.resources
 E:\roboProg\roboProgram\robo\obj\Debug\robo.Properties.Resources.resources
 E:\roboProg\roboProgram\robo\obj\Debug\robo.csproj.GenerateResource.cache
 E:\roboProg\roboProgram\robo\obj\Debug\robo.csproj.CoreCompileInputs.cache
 E:\roboProg\roboProgram\robo\obj\Debug\robo.csproj.CopyComplete
 E:\roboProg\roboProgram\robo\obj\Debug\robo.exe
 E:\roboProg\roboProgram\robo\obj\Debug\robo.pdb
+E:\roboProg\roboProgram\robo\obj\Debug\robo.robo.resources

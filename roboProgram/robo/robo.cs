@@ -13,9 +13,9 @@ using System.IO;
 
 namespace robo
 {
-    public partial class Form1 : Form
+    public partial class robo : Form
     {
-        public Form1()
+        public robo()
         {
             InitializeComponent();
         }
@@ -41,23 +41,26 @@ namespace robo
                 log("указанный ключ: " + uuid.Text);
                 log(address);
 
-                httpRequest("GET", "http://" + address, JsonConvert.SerializeObject(json));
+                httpRequest("GET", "http://" + address + "/Thingworx/Things", JsonConvert.SerializeObject(json));
             }
             
         }
         
         private void httpRequest(string method, string url, string json = "")
         {
-            
+
             try
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
                 req.Method = method;
-                req.Accept = uuid.Text;
+                string authInfo = login.Text + ":" + password.Text;
+                authInfo = Convert.ToBase64String(Encoding.Default.GetBytes(authInfo));
+                req.Headers["Authorization"] = "Basic " + authInfo;
+                //req.Headers["Authorization"] = "Bearer " + uuid;
+                //req.Headers["content-type"] = "application/json";
+                req.ContentType = "application/json";
                 if (method.Equals("POST") || method.Equals("PUT"))
                 {
-                    req.ContentType = "application/json";
-                    // req.Accept = ;
                     using (var requestStream = req.GetRequestStream())
                     using (var streamWriter = new StreamWriter(requestStream))
                     {
@@ -68,7 +71,6 @@ namespace robo
                 using (var responseStream = req.GetResponse().GetResponseStream())
                 using (var reader = new StreamReader(responseStream))
                 {
-                    //logBox.Text = logBox.Text + reader.ReadToEnd() + '\n';//ответ
                     log(reader.ReadToEnd());
                 }
             }
@@ -91,6 +93,11 @@ namespace robo
                 byte[] array = System.Text.Encoding.Default.GetBytes(text + '\n');
                 file.Write(array, 0, array.Length);
             }
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
