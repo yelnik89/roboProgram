@@ -56,6 +56,7 @@ namespace robo
                 string authInfo = login.Text + ":" + password.Text;
                 authInfo = Convert.ToBase64String(Encoding.Default.GetBytes(authInfo));
                 req.Headers["Authorization"] = "Basic " + authInfo;
+                req.Accept = "application/json";
                 //req.Headers["Authorization"] = "Bearer " + uuid;
                 //req.Headers["content-type"] = "application/json";
                 req.ContentType = "application/json";
