@@ -55,10 +55,9 @@ namespace robo
                 req.Method = method;
                 string authInfo = login.Text + ":" + password.Text;
                 authInfo = Convert.ToBase64String(Encoding.Default.GetBytes(authInfo));
-                req.Headers["Authorization"] = "Basic " + authInfo;
+                //req.Headers["Authorization"] = "Basic " + authInfo;
+                req.Headers["appkey"] = uuid.Text;
                 req.Accept = "application/json";
-                //req.Headers["Authorization"] = "Bearer " + uuid;
-                //req.Headers["content-type"] = "application/json";
                 req.ContentType = "application/json";
                 if (method.Equals("POST") || method.Equals("PUT"))
                 {
