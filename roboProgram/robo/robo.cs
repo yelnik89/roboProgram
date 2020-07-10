@@ -18,6 +18,7 @@ namespace robo
         public robo()
         {
             InitializeComponent();
+            autorizationType.SelectedIndex = 0;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -29,8 +30,13 @@ namespace robo
         {
             if (ip.Text.Equals("") || port.Text.Equals(""))
             {
-                if(ip.Text.Equals("")) log("не указан IP!!!");
-                if(port.Text.Equals("")) log("не указан порт!!!");
+                if (ip.Text.Equals("")) log("не указан IP!!!");
+                if (port.Text.Equals("")) log("не указан порт!!!");
+                if (autorizationType.SelectedIndex == 0 && uuid.Text.Length == 0) log("не указан Ключ!!!");
+                if (autorizationType.SelectedIndex == 1) {
+                    if (login.Text.Length == 0) log("не указан логин!!!");
+                    if (password.Text.Length == 0) log("не введен пароль!!!");
+                }
             }
             else
             {
@@ -38,7 +44,7 @@ namespace robo
 
                 RequestJson json = new RequestJson(uuid.Text);
 
-                log("указанный ключ: " + uuid.Text);
+                if (autorizationType.SelectedIndex == 0) log("указанный ключ: " + uuid.Text);
                 log(address);
 
                 httpRequest("GET", "http://" + address + "/Thingworx/Things", JsonConvert.SerializeObject(json));
@@ -55,8 +61,8 @@ namespace robo
                 req.Method = method;
                 string authInfo = login.Text + ":" + password.Text;
                 authInfo = Convert.ToBase64String(Encoding.Default.GetBytes(authInfo));
-                //req.Headers["Authorization"] = "Basic " + authInfo;
-                req.Headers["appkey"] = uuid.Text;
+                if (autorizationType.SelectedIndex == 1) req.Headers["Authorization"] = "Basic " + authInfo;
+                if (autorizationType.SelectedIndex == 0) req.Headers["appkey"] = uuid.Text;
                 req.Accept = "application/json";
                 req.ContentType = "application/json";
                 if (method.Equals("POST") || method.Equals("PUT"))
