@@ -67,7 +67,7 @@ namespace robo
         private string getProperty()
         {
             log("get Property");
-            string address = getAddress() + "/ledtest1/Properties/Propertydefinitions";
+            string address = getAddress() + "/ledtest1/Properties";
             if (address.Equals("")) return"";
             log(address);
             string result = httpRequest("GET", address);
