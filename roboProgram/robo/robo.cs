@@ -64,10 +64,10 @@ namespace robo
             }
         }
 
-        private string getProperty()
+        private string getProperty(string name)
         {
             log("get Property");
-            string address = getAddress() + "/ledtest1/Properties";
+            string address = getAddress() + "/" + name +"/Properties";
             if (address.Equals("")) return"";
             log(address);
             string result = httpRequest("GET", address);
@@ -77,14 +77,9 @@ namespace robo
 
         private void thingList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            getProperty();
-            //log("get Thing");
-            //string address = getAddress();
-            //if (address.Equals("")) return;
-            //address += "/" + thingList.SelectedItem;
-            //log(address);
-            //string result = httpRequest("GET", address);
-            //log(result);
+            string json = getProperty((string)thingList.SelectedItem);
+            Propertys.Rootobject property = JsonConvert.DeserializeObject<Propertys.Rootobject>(json);
+
         }
 
         private void fullingThingList(string json)
