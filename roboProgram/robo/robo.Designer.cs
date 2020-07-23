@@ -43,6 +43,7 @@
             this.password = new System.Windows.Forms.TextBox();
             this.autorizationType = new System.Windows.Forms.ComboBox();
             this.autorizationLabel = new System.Windows.Forms.Label();
+            this.thingList = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -59,7 +60,7 @@
             // uuid
             // 
             this.uuid.Location = new System.Drawing.Point(115, 65);
-            this.uuid.Margin = new System.Windows.Forms.Padding(4);
+            this.uuid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.uuid.Name = "uuid";
             this.uuid.Size = new System.Drawing.Size(313, 22);
             this.uuid.TabIndex = 3;
@@ -67,7 +68,7 @@
             // logBox
             // 
             this.logBox.Location = new System.Drawing.Point(16, 149);
-            this.logBox.Margin = new System.Windows.Forms.Padding(4);
+            this.logBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.logBox.Name = "logBox";
             this.logBox.ReadOnly = true;
             this.logBox.Size = new System.Drawing.Size(716, 378);
@@ -77,7 +78,7 @@
             // sendReqest
             // 
             this.sendReqest.Location = new System.Drawing.Point(588, 100);
-            this.sendReqest.Margin = new System.Windows.Forms.Padding(4);
+            this.sendReqest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.sendReqest.Name = "sendReqest";
             this.sendReqest.Size = new System.Drawing.Size(144, 28);
             this.sendReqest.TabIndex = 5;
@@ -88,7 +89,7 @@
             // myIP
             // 
             this.myIP.Location = new System.Drawing.Point(588, 63);
-            this.myIP.Margin = new System.Windows.Forms.Padding(4);
+            this.myIP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.myIP.Name = "myIP";
             this.myIP.Size = new System.Drawing.Size(144, 28);
             this.myIP.TabIndex = 6;
@@ -99,7 +100,7 @@
             // port
             // 
             this.port.Location = new System.Drawing.Point(256, 103);
-            this.port.Margin = new System.Windows.Forms.Padding(4);
+            this.port.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.port.Name = "port";
             this.port.Size = new System.Drawing.Size(53, 22);
             this.port.TabIndex = 7;
@@ -127,17 +128,17 @@
             // ip
             // 
             this.ip.Location = new System.Drawing.Point(47, 103);
-            this.ip.Margin = new System.Windows.Forms.Padding(4);
+            this.ip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.ip.Name = "ip";
-            this.ip.Size = new System.Drawing.Size(138, 22);
+            this.ip.Size = new System.Drawing.Size(137, 22);
             this.ip.TabIndex = 10;
             // 
             // login
             // 
             this.login.Location = new System.Drawing.Point(80, 30);
-            this.login.Margin = new System.Windows.Forms.Padding(4);
+            this.login.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.login.Name = "login";
-            this.login.Size = new System.Drawing.Size(194, 22);
+            this.login.Size = new System.Drawing.Size(193, 22);
             this.login.TabIndex = 11;
             this.login.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
@@ -164,7 +165,7 @@
             // password
             // 
             this.password.Location = new System.Drawing.Point(384, 30);
-            this.password.Margin = new System.Windows.Forms.Padding(4);
+            this.password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.password.Name = "password";
             this.password.PasswordChar = '*';
             this.password.Size = new System.Drawing.Size(348, 22);
@@ -178,6 +179,7 @@
             "по ключу",
             "по логину"});
             this.autorizationType.Location = new System.Drawing.Point(459, 103);
+            this.autorizationType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.autorizationType.Name = "autorizationType";
             this.autorizationType.Size = new System.Drawing.Size(109, 24);
             this.autorizationType.TabIndex = 15;
@@ -191,11 +193,21 @@
             this.autorizationLabel.TabIndex = 16;
             this.autorizationLabel.Text = "Тип авторизации";
             // 
+            // thingList
+            // 
+            this.thingList.FormattingEnabled = true;
+            this.thingList.Location = new System.Drawing.Point(784, 30);
+            this.thingList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.thingList.Name = "thingList";
+            this.thingList.Size = new System.Drawing.Size(487, 24);
+            this.thingList.TabIndex = 17;
+            this.thingList.SelectedIndexChanged += new System.EventHandler(this.thingList_SelectedIndexChanged);
+            // 
             // robo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(752, 543);
+            this.ClientSize = new System.Drawing.Size(1284, 545);
             this.Controls.Add(this.autorizationLabel);
             this.Controls.Add(this.autorizationType);
             this.Controls.Add(this.password);
@@ -211,7 +223,8 @@
             this.Controls.Add(this.logBox);
             this.Controls.Add(this.uuid);
             this.Controls.Add(this.label1);
-            this.Margin = new System.Windows.Forms.Padding(4);
+            this.Controls.Add(this.thingList);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "robo";
             this.Text = "robo";
             this.ResumeLayout(false);
@@ -235,6 +248,7 @@
         private System.Windows.Forms.TextBox password;
         private System.Windows.Forms.ComboBox autorizationType;
         private System.Windows.Forms.Label autorizationLabel;
+        private System.Windows.Forms.ComboBox thingList;
     }
 }
 

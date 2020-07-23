@@ -68,6 +68,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RequestJson.cs" />
+    <Compile Include="ThingJson.cs" />
+    <Compile Include="AllThingsJson.cs" />
     <EmbeddedResource Include="robo.resx">
       <DependentUpon>robo.cs</DependentUpon>
     </EmbeddedResource>

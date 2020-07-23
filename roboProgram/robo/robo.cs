@@ -20,7 +20,7 @@ namespace robo
             InitializeComponent();
             autorizationType.SelectedIndex = 0;
         }
-
+        
         private void label1_Click(object sender, EventArgs e)
         {
 
@@ -28,33 +28,80 @@ namespace robo
 
         private void sendReqest_Click(object sender, EventArgs e)
         {
-            if (ip.Text.Equals("") || port.Text.Equals(""))
+            int error = 0;
+            string address = getAddress();
+            if (autorizationType.SelectedIndex == 0)
             {
-                if (ip.Text.Equals("")) log("не указан IP!!!");
-                if (port.Text.Equals("")) log("не указан порт!!!");
-                if (autorizationType.SelectedIndex == 0 && uuid.Text.Length == 0) log("не указан Ключ!!!");
-                if (autorizationType.SelectedIndex == 1) {
-                    if (login.Text.Length == 0) log("не указан логин!!!");
-                    if (password.Text.Length == 0) log("не введен пароль!!!");
+                if (uuid.Text.Length == 0)
+                {
+                    log("не указан Ключ!!!");
+                    error++;
                 }
             }
-            else
+            else if (autorizationType.SelectedIndex == 1)
             {
-                string address = ip.Text + ":" + port.Text;
+                if (login.Text.Length == 0)
+                {
+                    log("не указан логин!!!");
+                    error++;
+                }
+                if (password.Text.Length == 0)
+                {
+                    log("не введен пароль!!!");
+                    error++;
+                }
+            }
+            if (address.Equals("")) error++;
 
-                RequestJson json = new RequestJson(uuid.Text);
-
+            if (error < 1)
+            {
                 if (autorizationType.SelectedIndex == 0) log("указанный ключ: " + uuid.Text);
                 log(address);
 
-                httpRequest("GET", "http://" + address + "/Thingworx/Things", JsonConvert.SerializeObject(json));
-            }
-            
-        }
-        
-        private void httpRequest(string method, string url, string json = "")
-        {
+                string json = httpRequest("GET", address);
 
+                if(!json.Equals("error"))fullingThingList(json);
+            }
+        }
+
+        private string getProperty()
+        {
+            log("get Property");
+            string address = getAddress() + "/ledtest1/Properties/Propertydefinitions";
+            if (address.Equals("")) return"";
+            log(address);
+            string result = httpRequest("GET", address);
+            log(result);
+            return result;
+        }
+
+        private void thingList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            getProperty();
+            //log("get Thing");
+            //string address = getAddress();
+            //if (address.Equals("")) return;
+            //address += "/" + thingList.SelectedItem;
+            //log(address);
+            //string result = httpRequest("GET", address);
+            //log(result);
+        }
+
+        private void fullingThingList(string json)
+        {
+            AllThingsJson.Rootobject josnThings = JsonConvert.DeserializeObject<AllThingsJson.Rootobject>(json);
+
+            foreach (AllThingsJson.Row row in josnThings.rows)
+            {
+                thingList.Items.Add(row);
+            }
+
+            thingList.SelectedIndex = 0;
+        }
+                
+        private string httpRequest(string method, string url, string json = "")
+        {
+            string result;
             try
             {
                 HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
@@ -77,18 +124,46 @@ namespace robo
                 using (var responseStream = req.GetResponse().GetResponseStream())
                 using (var reader = new StreamReader(responseStream))
                 {
-                    log(reader.ReadToEnd());
+                    result = reader.ReadToEnd();
+                    log(result);
+                    return (result);
                 }
             }
             catch(Exception e)
             {
                 log(e.Message);
             }
+
+            return "error";
         }
 
         private void myIP_Click(object sender, EventArgs e)
         {
             httpRequest("GET", "https://api.myip.com");
+        }
+
+        private string getAddress()
+        {
+            int error = 0;
+            string address = "http://" + ip.Text + ":" + port.Text + "/Thingworx/Things";
+            if (ip.Text.Equals(""))
+            {
+                log("не указан IP!!!");
+                error++;
+            }
+            if (port.Text.Equals(""))
+            {
+                log("не указан порт!!!");
+                error++;
+            }
+            if (error < 1)
+            {
+                return address;
+            }
+            else
+            {
+                return "";
+            }
         }
 
         private void log(string text)
