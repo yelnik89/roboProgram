@@ -44,43 +44,43 @@
             this.autorizationType = new System.Windows.Forms.ComboBox();
             this.autorizationLabel = new System.Windows.Forms.Label();
             this.thingList = new System.Windows.Forms.ComboBox();
+            this.ThingNameLabel = new System.Windows.Forms.Label();
+            this.ThingName = new System.Windows.Forms.TextBox();
+            this.ParamsNames = new System.Windows.Forms.RichTextBox();
+            this.ParamsValues = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 69);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Location = new System.Drawing.Point(9, 56);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 17);
+            this.label1.Size = new System.Drawing.Size(74, 13);
             this.label1.TabIndex = 2;
             this.label1.Text = "ключь (UUID)";
             this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // uuid
             // 
-            this.uuid.Location = new System.Drawing.Point(115, 65);
-            this.uuid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.uuid.Location = new System.Drawing.Point(86, 53);
             this.uuid.Name = "uuid";
-            this.uuid.Size = new System.Drawing.Size(313, 22);
+            this.uuid.Size = new System.Drawing.Size(236, 20);
             this.uuid.TabIndex = 3;
             // 
             // logBox
             // 
-            this.logBox.Location = new System.Drawing.Point(16, 149);
-            this.logBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.logBox.Location = new System.Drawing.Point(10, 121);
             this.logBox.Name = "logBox";
             this.logBox.ReadOnly = true;
-            this.logBox.Size = new System.Drawing.Size(716, 378);
+            this.logBox.Size = new System.Drawing.Size(538, 621);
             this.logBox.TabIndex = 4;
             this.logBox.Text = "";
             // 
             // sendReqest
             // 
-            this.sendReqest.Location = new System.Drawing.Point(588, 100);
-            this.sendReqest.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.sendReqest.Location = new System.Drawing.Point(441, 81);
             this.sendReqest.Name = "sendReqest";
-            this.sendReqest.Size = new System.Drawing.Size(144, 28);
+            this.sendReqest.Size = new System.Drawing.Size(108, 23);
             this.sendReqest.TabIndex = 5;
             this.sendReqest.Text = "отправить запрос";
             this.sendReqest.UseVisualStyleBackColor = true;
@@ -88,10 +88,9 @@
             // 
             // myIP
             // 
-            this.myIP.Location = new System.Drawing.Point(588, 63);
-            this.myIP.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.myIP.Location = new System.Drawing.Point(441, 51);
             this.myIP.Name = "myIP";
-            this.myIP.Size = new System.Drawing.Size(144, 28);
+            this.myIP.Size = new System.Drawing.Size(108, 23);
             this.myIP.TabIndex = 6;
             this.myIP.Text = "запрос на myIP";
             this.myIP.UseVisualStyleBackColor = true;
@@ -99,76 +98,68 @@
             // 
             // port
             // 
-            this.port.Location = new System.Drawing.Point(256, 103);
-            this.port.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.port.Location = new System.Drawing.Point(193, 83);
             this.port.Name = "port";
-            this.port.Size = new System.Drawing.Size(53, 22);
+            this.port.Size = new System.Drawing.Size(41, 20);
             this.port.TabIndex = 7;
             // 
             // portLabel
             // 
             this.portLabel.AutoSize = true;
-            this.portLabel.Location = new System.Drawing.Point(203, 106);
-            this.portLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.portLabel.Location = new System.Drawing.Point(152, 86);
             this.portLabel.Name = "portLabel";
-            this.portLabel.Size = new System.Drawing.Size(45, 17);
+            this.portLabel.Size = new System.Drawing.Size(35, 13);
             this.portLabel.TabIndex = 8;
             this.portLabel.Text = "Порт:";
             // 
             // ipLabel
             // 
             this.ipLabel.AutoSize = true;
-            this.ipLabel.Location = new System.Drawing.Point(15, 106);
-            this.ipLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.ipLabel.Location = new System.Drawing.Point(11, 86);
             this.ipLabel.Name = "ipLabel";
-            this.ipLabel.Size = new System.Drawing.Size(24, 17);
+            this.ipLabel.Size = new System.Drawing.Size(20, 13);
             this.ipLabel.TabIndex = 9;
             this.ipLabel.Text = "IP:";
             // 
             // ip
             // 
-            this.ip.Location = new System.Drawing.Point(47, 103);
-            this.ip.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ip.Location = new System.Drawing.Point(37, 83);
             this.ip.Name = "ip";
-            this.ip.Size = new System.Drawing.Size(137, 22);
+            this.ip.Size = new System.Drawing.Size(104, 20);
             this.ip.TabIndex = 10;
             // 
             // login
             // 
-            this.login.Location = new System.Drawing.Point(80, 30);
-            this.login.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.login.Location = new System.Drawing.Point(60, 24);
             this.login.Name = "login";
-            this.login.Size = new System.Drawing.Size(193, 22);
+            this.login.Size = new System.Drawing.Size(146, 20);
             this.login.TabIndex = 11;
             this.login.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // LoginText
             // 
             this.LoginText.AutoSize = true;
-            this.LoginText.Location = new System.Drawing.Point(12, 33);
-            this.LoginText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LoginText.Location = new System.Drawing.Point(9, 27);
             this.LoginText.Name = "LoginText";
-            this.LoginText.Size = new System.Drawing.Size(47, 17);
+            this.LoginText.Size = new System.Drawing.Size(38, 13);
             this.LoginText.TabIndex = 12;
             this.LoginText.Text = "Логин";
             // 
             // passwordText
             // 
             this.passwordText.AutoSize = true;
-            this.passwordText.Location = new System.Drawing.Point(316, 33);
-            this.passwordText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.passwordText.Location = new System.Drawing.Point(237, 27);
             this.passwordText.Name = "passwordText";
-            this.passwordText.Size = new System.Drawing.Size(57, 17);
+            this.passwordText.Size = new System.Drawing.Size(45, 13);
             this.passwordText.TabIndex = 13;
             this.passwordText.Text = "Пароль";
             // 
             // password
             // 
-            this.password.Location = new System.Drawing.Point(384, 30);
-            this.password.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.password.Location = new System.Drawing.Point(288, 24);
             this.password.Name = "password";
             this.password.PasswordChar = '*';
-            this.password.Size = new System.Drawing.Size(348, 22);
+            this.password.Size = new System.Drawing.Size(262, 20);
             this.password.TabIndex = 14;
             // 
             // autorizationType
@@ -178,36 +169,74 @@
             this.autorizationType.Items.AddRange(new object[] {
             "по ключу",
             "по логину"});
-            this.autorizationType.Location = new System.Drawing.Point(459, 103);
-            this.autorizationType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.autorizationType.Location = new System.Drawing.Point(348, 82);
+            this.autorizationType.Margin = new System.Windows.Forms.Padding(2);
             this.autorizationType.Name = "autorizationType";
-            this.autorizationType.Size = new System.Drawing.Size(109, 24);
+            this.autorizationType.Size = new System.Drawing.Size(83, 21);
             this.autorizationType.TabIndex = 15;
             // 
             // autorizationLabel
             // 
             this.autorizationLabel.AutoSize = true;
-            this.autorizationLabel.Location = new System.Drawing.Point(333, 105);
+            this.autorizationLabel.Location = new System.Drawing.Point(250, 86);
+            this.autorizationLabel.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.autorizationLabel.Name = "autorizationLabel";
-            this.autorizationLabel.Size = new System.Drawing.Size(122, 17);
+            this.autorizationLabel.Size = new System.Drawing.Size(94, 13);
             this.autorizationLabel.TabIndex = 16;
             this.autorizationLabel.Text = "Тип авторизации";
             // 
             // thingList
             // 
             this.thingList.FormattingEnabled = true;
-            this.thingList.Location = new System.Drawing.Point(784, 30);
-            this.thingList.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.thingList.Location = new System.Drawing.Point(585, 24);
             this.thingList.Name = "thingList";
-            this.thingList.Size = new System.Drawing.Size(487, 24);
+            this.thingList.Size = new System.Drawing.Size(260, 21);
             this.thingList.TabIndex = 17;
             this.thingList.SelectedIndexChanged += new System.EventHandler(this.thingList_SelectedIndexChanged);
             // 
+            // ThingNameLabel
+            // 
+            this.ThingNameLabel.AutoSize = true;
+            this.ThingNameLabel.Location = new System.Drawing.Point(582, 56);
+            this.ThingNameLabel.Name = "ThingNameLabel";
+            this.ThingNameLabel.Size = new System.Drawing.Size(65, 13);
+            this.ThingNameLabel.TabIndex = 90;
+            this.ThingNameLabel.Text = "Thing Name";
+            // 
+            // ThingName
+            // 
+            this.ThingName.Location = new System.Drawing.Point(653, 53);
+            this.ThingName.Name = "ThingName";
+            this.ThingName.Size = new System.Drawing.Size(192, 20);
+            this.ThingName.TabIndex = 91;
+            // 
+            // ParamsNames
+            // 
+            this.ParamsNames.Location = new System.Drawing.Point(585, 121);
+            this.ParamsNames.Name = "ParamsNames";
+            this.ParamsNames.ReadOnly = true;
+            this.ParamsNames.Size = new System.Drawing.Size(111, 621);
+            this.ParamsNames.TabIndex = 92;
+            this.ParamsNames.Text = "";
+            // 
+            // ParamsValues
+            // 
+            this.ParamsValues.Location = new System.Drawing.Point(702, 121);
+            this.ParamsValues.Name = "ParamsValues";
+            this.ParamsValues.ReadOnly = true;
+            this.ParamsValues.Size = new System.Drawing.Size(143, 621);
+            this.ParamsValues.TabIndex = 93;
+            this.ParamsValues.Text = "";
+            // 
             // robo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1284, 545);
+            this.ClientSize = new System.Drawing.Size(857, 754);
+            this.Controls.Add(this.ParamsValues);
+            this.Controls.Add(this.ParamsNames);
+            this.Controls.Add(this.ThingName);
+            this.Controls.Add(this.ThingNameLabel);
             this.Controls.Add(this.autorizationLabel);
             this.Controls.Add(this.autorizationType);
             this.Controls.Add(this.password);
@@ -224,9 +253,9 @@
             this.Controls.Add(this.uuid);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.thingList);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "robo";
             this.Text = "robo";
+            this.Load += new System.EventHandler(this.robo_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,6 +278,10 @@
         private System.Windows.Forms.ComboBox autorizationType;
         private System.Windows.Forms.Label autorizationLabel;
         private System.Windows.Forms.ComboBox thingList;
+        private System.Windows.Forms.Label ThingNameLabel;
+        private System.Windows.Forms.TextBox ThingName;
+        private System.Windows.Forms.RichTextBox ParamsNames;
+        private System.Windows.Forms.RichTextBox ParamsValues;
     }
 }
 

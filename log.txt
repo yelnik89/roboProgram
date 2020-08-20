@@ -1,0 +1,250 @@
+get Property
+http://94.159.91.166:9080/Thingworx/Things/ledtest1/Properties
+{"dataShape":
+    {"fieldDefinitions":
+        {"name":{
+            "name":"name",
+            "description":"Thing name",
+            "baseType":"STRING",
+            "ordinal":0,
+            "aspects":
+                {"isReadOnly":true,
+                "isPersistent":false,
+                "isBuiltIn":true}
+            },
+        "description":{
+            "name":"description",
+            "description":"Thing description",
+            "baseType":"STRING",
+            "ordinal":0,
+            "aspects":{
+                "isReadOnly":true,
+                "isPersistent":false,
+                "isBuiltIn":true}
+            },
+        "thingTemplate":{
+            "name":"thingTemplate",
+            "description":"Thing Template",
+            "baseType":"THINGTEMPLATENAME",
+            "ordinal":0,
+            "aspects":{
+                "isReadOnly":true,
+                "isPersistent":false,
+                "isBuiltIn":true}
+            },
+        "tags":{
+            "name":"tags",
+            "description":"Thing Tags",
+            "baseType":"TAGS",
+            "ordinal":0,
+            "aspects":{
+                "isReadOnly":true,
+                "isPersistent":false,
+                "tagType":"ModelTags",
+                "isBuiltIn":true}
+            },
+        "led1":{
+            "name":"led1",
+            "description":"",
+            "baseType":"INTEGER",
+            "ordinal":2,
+            "aspects":{
+                "dataChangeType":"VALUE",
+                "cacheTime":0.0}
+            },
+        "led2":{"name":"led2","description":"","baseType":"INTEGER","ordinal":3,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}},
+        "led3":{"name":"led3","description":"","baseType":"INTEGER","ordinal":4,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}},
+        "led4":{"name":"led4","description":"","baseType":"INTEGER","ordinal":5,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}}}
+    },
+"rows":[
+    {"name":"ledtest1",
+    "description":"",
+    "thingTemplate":"GenericThing",
+    "tags":[],
+    "led1":0,
+    "led2":0,
+    "led3":0,
+    "led4":0}]
+}
+get Property
+http://94.159.91.166:9080/Thingworx/Things/Traffic_Lights_1/Properties
+{"dataShape":{"fieldDefinitions":{"name":{"name":"name","description":"Thing name","baseType":"STRING","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"description":{"name":"description","description":"Thing description","baseType":"STRING","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"thingTemplate":{"name":"thingTemplate","description":"Thing Template","baseType":"THINGTEMPLATENAME","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"tags":{"name":"tags","description":"Thing Tags","baseType":"TAGS","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"tagType":"ModelTags","isBuiltIn":true}},"Led_2":{"name":"Led_2","description":"","baseType":"INTEGER","ordinal":3,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Led_3":{"name":"Led_3","description":"","baseType":"INTEGER","ordinal":4,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Led_1":{"name":"Led_1","description":"","baseType":"INTEGER","ordinal":2,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Led_4":{"name":"Led_4","description":"","baseType":"INTEGER","ordinal":5,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}}}},
+"rows":[{
+    "name":"Traffic_Lights_1",
+    "description":"Example",
+    "thingTemplate":"GenericThing",
+    "tags":[],
+    "Led_2":0,
+    "Led_3":0,
+    "Led_1":1,
+    "Led_4":0}]
+}
+get Property
+http://94.159.91.166:9080/Thingworx/Things/S_RemoteTerminal_J/Properties
+{"dataShape":{"fieldDefinitions":{"name":{"name":"name","description":"Thing name","baseType":"STRING","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"description":{"name":"description","description":"Thing description","baseType":"STRING","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"thingTemplate":{"name":"thingTemplate","description":"Thing Template","baseType":"THINGTEMPLATENAME","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"tags":{"name":"tags","description":"Thing Tags","baseType":"TAGS","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"tagType":"ModelTags","isBuiltIn":true}},"Light1":{"name":"Light1","description":"","baseType":"INTEGER","ordinal":6,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}},"Button1":{"name":"Button1","description":"","baseType":"INTEGER","ordinal":3,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}},"Light2":{"name":"Light2","description":"","baseType":"INTEGER","ordinal":7,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}},"Light3":{"name":"Light3","description":"","baseType":"INTEGER","ordinal":8,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}},"Light4":{"name":"Light4","description":"","baseType":"INTEGER","ordinal":9,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}},"Button3":{"name":"Button3","description":"","baseType":"INTEGER","ordinal":5,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}},"Button2":{"name":"Button2","description":"","baseType":"INTEGER","ordinal":4,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}},"DeadManSwitch":{"name":"DeadManSwitch","description":"","baseType":"INTEGER","ordinal":2,"aspects":{"dataChangeType":"VALUE","cacheTime":0.0}}}},
+"rows":[{
+    "name":"S_RemoteTerminal_J",
+    "description":"",
+    "thingTemplate":"GenericThing",
+    "tags":[],
+    "Light1":0,
+    "Button1":0,
+    "Light2":0,
+    "Light3":0,
+    "Light4":0,
+    "Button3":0,
+    "Button2":0,
+    "DeadManSwitch":1}]}
+get Property
+http://94.159.91.166:9080/Thingworx/Things/RT_Egor/Properties
+{"dataShape":{"fieldDefinitions":{"name":{"name":"name","description":"Thing name","baseType":"STRING","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"description":{"name":"description","description":"Thing description","baseType":"STRING","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"thingTemplate":{"name":"thingTemplate","description":"Thing Template","baseType":"THINGTEMPLATENAME","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"tags":{"name":"tags","description":"Thing Tags","baseType":"TAGS","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"tagType":"ModelTags","isBuiltIn":true}},"Light1":{"name":"Light1","description":"","baseType":"INTEGER","ordinal":2,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Button1":{"name":"Button1","description":"","baseType":"INTEGER","ordinal":6,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Light2":{"name":"Light2","description":"","baseType":"INTEGER","ordinal":3,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Switch":{"name":"Switch","description":"","baseType":"INTEGER","ordinal":9,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Light3":{"name":"Light3","description":"","baseType":"INTEGER","ordinal":4,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Light4":{"name":"Light4","description":"","baseType":"INTEGER","ordinal":5,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Button3":{"name":"Button3","description":"","baseType":"INTEGER","ordinal":8,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Button2":{"name":"Button2","description":"","baseType":"INTEGER","ordinal":7,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}}}},
+"rows":[{
+    "name":"RT_Egor",
+    "description":"",
+    "thingTemplate":"GenericThing",
+    "tags":[],
+    "Light1":0,
+    "Button1":3,
+    "Light2":0,
+    "Switch":1,
+    "Light3":0,
+    "Light4":0,
+    "Button3":5,
+    "Button2":4}]}
+get Property
+http://94.159.91.166:9080/Thingworx/Things/Manipulator/Properties
+{"dataShape":{"fieldDefinitions":{"name":{"name":"name","description":"Thing name","baseType":"STRING","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"description":{"name":"description","description":"Thing description","baseType":"STRING","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"thingTemplate":{"name":"thingTemplate","description":"Thing Template","baseType":"THINGTEMPLATENAME","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}},"tags":{"name":"tags","description":"Thing Tags","baseType":"TAGS","ordinal":0,"aspects":{"isReadOnly":true,"isPersistent":false,"tagType":"ModelTags","isBuiltIn":true}},"Load_3":{"name":"Load_3","description":"","baseType":"INTEGER","ordinal":8,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Position_X":{"name":"Position_X","description":"","baseType":"INTEGER","ordinal":24,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Load_4":{"name":"Load_4","description":"","baseType":"INTEGER","ordinal":9,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Position_Y":{"name":"Position_Y","description":"","baseType":"INTEGER","ordinal":25,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Load_1":{"name":"Load_1","description":"","baseType":"INTEGER","ordinal":6,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Load_2":{"name":"Load_2","description":"","baseType":"INTEGER","ordinal":7,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Load_5":{"name":"Load_5","description":"","baseType":"INTEGER","ordinal":10,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Load_6":{"name":"Load_6","description":"","baseType":"INTEGER","ordinal":11,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_1":{"name":"Motor_1","description":"","baseType":"INTEGER","ordinal":12,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_2":{"name":"Motor_2","description":"","baseType":"INTEGER","ordinal":13,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_3":{"name":"Motor_3","description":"","baseType":"INTEGER","ordinal":14,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_4":{"name":"Motor_4","description":"","baseType":"INTEGER","ordinal":15,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_5":{"name":"Motor_5","description":"","baseType":"INTEGER","ordinal":16,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_6":{"name":"Motor_6","description":"","baseType":"INTEGER","ordinal":17,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Vacuum":{"name":"Vacuum","description":"","baseType":"INTEGER","ordinal":27,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Currents_phase":{"name":"Currents_phase","description":"","baseType":"INTEGER","ordinal":3,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Status":{"name":"Status","description":"","baseType":"INTEGER","ordinal":28,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"CCN":{"name":"CCN","description":"","baseType":"INTEGER","ordinal":2,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_4":{"name":"Temp_4","description":"","baseType":"INTEGER","ordinal":21,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_3":{"name":"Temp_3","description":"","baseType":"INTEGER","ordinal":20,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_6":{"name":"Temp_6","description":"","baseType":"INTEGER","ordinal":23,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_5":{"name":"Temp_5","description":"","baseType":"INTEGER","ordinal":22,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Gripper":{"name":"Gripper","description":"","baseType":"INTEGER","ordinal":4,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"LCN":{"name":"LCN","description":"","baseType":"INTEGER","ordinal":5,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Position_T":{"name":"Position_T","description":"","baseType":"INTEGER","ordinal":26,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_2":{"name":"Temp_2","description":"","baseType":"INTEGER","ordinal":19,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_1":{"name":"Temp_1","description":"","baseType":"INTEGER","ordinal":18,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}}}},
+"rows":[{
+    "name":"Manipulator",
+    "description":"Example",
+    "thingTemplate":"GenericThing",
+    "tags":[],
+    "Load_3":31,
+    "Position_X":260,
+    "Load_4":26,
+    "Position_Y":320,
+    "Load_1":27,
+    "Load_2":163,
+    "Load_5":0,
+    "Load_6":0,
+    "Motor_1":2283,
+    "Motor_2":1776,
+    "Motor_3":1606,
+    "Motor_4":1734,
+    "Motor_5":286,
+    "Motor_6":641,
+    "Vacuum":0,
+    "Currents_phase":0,
+    "Status":0,
+    "CCN":0,
+    "Temp_4":42,
+    "Temp_3":42,
+    "Temp_6":42,
+    "Temp_5":42,
+    "Gripper":1,
+    "LCN":0,
+    "Position_T":100,
+    "Temp_2":42,
+    "Temp_1":42}]}
+get Property
+http://94.159.91.166:9080/Thingworx/Things/Palletaizer/Properties
+{"dataShape":{"fieldDefinitions":{
+    "name":{
+        "name":"name",
+        "description":"Thing name",
+        "baseType":"STRING",
+        "ordinal":0,
+        "aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}
+    },
+    "description":{
+        "name":"description",
+        "description":"Thing description",
+        "baseType":"STRING",
+        "ordinal":0,
+        "aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}
+    },
+    "thingTemplate":{
+        "name":"thingTemplate",
+        "description":"Thing Template",
+        "baseType":"THINGTEMPLATENAME",
+        "ordinal":0,
+        "aspects":{"isReadOnly":true,"isPersistent":false,"isBuiltIn":true}
+    },
+    "tags":{
+        "name":"tags",
+        "description":"Thing Tags",
+        "baseType":"TAGS",
+        "ordinal":0,
+        "aspects":{"isReadOnly":true,"isPersistent":false,"tagType":"ModelTags","isBuiltIn":true}
+    },
+    "Load_3":{
+        "name":"Load_3",
+        "description":"",
+        "baseType":"INTEGER",
+        "ordinal":8,
+        "aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}
+    },
+    "Position_X":{
+        "name":"Position_X",
+        "description":"",
+        "baseType":"INTEGER",
+        "ordinal":24,
+        "aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}
+    },
+    "Status":{
+        "name":"Status",
+        "description":"",
+        "baseType":"INTEGER",
+        "ordinal":28,
+        "aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}
+    },
+    "Load_4":{
+        "name":"Load_4",
+        "description":"",
+        "baseType":"INTEGER",
+        "ordinal":9,
+        "aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}
+    },
+    "Position_Y":{
+        "name":"Position_Y",
+        "description":"",
+        "baseType":"INTEGER",
+        "ordinal":25,
+        "aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}
+    },
+    "Load_1":{
+        "name":"Load_1",
+        "description":"",
+        "baseType":"INTEGER",
+        "ordinal":6,
+        "aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}
+    },
+    "Load_2":{"name":"Load_2","description":"","baseType":"INTEGER","ordinal":7,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Load_5":{"name":"Load_5","description":"","baseType":"INTEGER","ordinal":10,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_1":{"name":"Motor_1","description":"","baseType":"INTEGER","ordinal":12,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_2":{"name":"Motor_2","description":"","baseType":"INTEGER","ordinal":13,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_3":{"name":"Motor_3","description":"","baseType":"INTEGER","ordinal":14,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_4":{"name":"Motor_4","description":"","baseType":"INTEGER","ordinal":15,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Motor_5":{"name":"Motor_5","description":"","baseType":"INTEGER","ordinal":16,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"CCN":{"name":"CCN","description":"","baseType":"INTEGER","ordinal":2,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_4":{"name":"Temp_4","description":"","baseType":"INTEGER","ordinal":21,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_3":{"name":"Temp_3","description":"","baseType":"INTEGER","ordinal":20,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_5":{"name":"Temp_5","description":"","baseType":"INTEGER","ordinal":22,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Vacuum":{"name":"Vacuum","description":"","baseType":"INTEGER","ordinal":27,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Gripper":{"name":"Gripper","description":"","baseType":"INTEGER","ordinal":4,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"LCN":{"name":"LCN","description":"","baseType":"INTEGER","ordinal":5,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Currents_phase":{"name":"Currents_phase","description":"","baseType":"INTEGER","ordinal":3,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_2":{"name":"Temp_2","description":"","baseType":"INTEGER","ordinal":19,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}},"Temp_1":{"name":"Temp_1","description":"","baseType":"INTEGER","ordinal":18,"aspects":{"isPersistent":true,"dataChangeType":"VALUE","cacheTime":0.0}}}},
+"rows":[{
+    "name":"Palletaizer",
+    "description":"Example",
+    "thingTemplate":"GenericThing",
+    "tags":[],
+    "Load_3":1200,
+    "Position_X":280,
+    "Status":0,
+    "Load_4":0,
+    "Position_Y":180,
+    "Load_1":32,
+    "Load_2":1096,
+    "Load_5":0,
+    "Motor_1":2278,
+    "Motor_2":1923,
+    "Motor_3":2004,
+    "Motor_4":510,
+    "Motor_5":511,
+    "CCN":0,
+    "Temp_4":36,
+    "Temp_3":43,
+    "Temp_5":37,
+    "Vacuum":0,
+    "Gripper":1,
+    "LCN":0,
+    "Currents_phase":0,
+    "Temp_2":42,
+    "Temp_1":40}]}

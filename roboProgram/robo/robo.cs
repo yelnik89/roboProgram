@@ -15,10 +15,13 @@ namespace robo
 {
     public partial class robo : Form
     {
+        private ThingsFactory factory;
+
         public robo()
         {
             InitializeComponent();
             autorizationType.SelectedIndex = 0;
+            this.factory = new ThingsFactory();
         }
         
         private void label1_Click(object sender, EventArgs e)
@@ -64,6 +67,15 @@ namespace robo
             }
         }
 
+        private void thingList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            AllThingsJson.Row thingName = (AllThingsJson.Row)thingList.SelectedItem;
+            string json = getProperty(thingName.name);
+            ThingsFactory factory = new ThingsFactory();
+            Dictionary<string, string> property = factory.getThing(json);
+            fullingParams(property);
+        }
+
         private string getProperty(string name)
         {
             log("get Property");
@@ -75,13 +87,25 @@ namespace robo
             return result;
         }
 
-        private void thingList_SelectedIndexChanged(object sender, EventArgs e)
+        private void fullingParams(Dictionary<string, string> dict)
         {
-            string json = getProperty((string)thingList.SelectedItem);
-            Propertys.Rootobject property = JsonConvert.DeserializeObject<Propertys.Rootobject>(json);
-
+            ThingName.Text = null;
+            ParamsValues.Text = null;
+            ParamsNames.Text = null;
+            if (dict == null) return;
+            foreach(KeyValuePair<string, string> pair in dict)
+            {
+                if (pair.Key.Equals("name"))
+                {
+                    ThingName.Text = pair.Value;
+                    continue;
+                }
+                if (pair.Key.Equals("description") || pair.Key.Equals("thingTemplate") || pair.Key.Equals("tags")) continue;
+                ParamsNames.AppendText(pair.Key + Environment.NewLine);
+                ParamsValues.AppendText(pair.Value + Environment.NewLine);
+            }
         }
-
+        
         private void fullingThingList(string json)
         {
             AllThingsJson.Rootobject josnThings = JsonConvert.DeserializeObject<AllThingsJson.Rootobject>(json);
@@ -172,6 +196,11 @@ namespace robo
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void robo_Load(object sender, EventArgs e)
         {
 
         }
