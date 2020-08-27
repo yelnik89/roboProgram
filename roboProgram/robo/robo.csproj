@@ -61,7 +61,9 @@
   <ItemGroup>
     <Compile Include="LedPropertys.cs" />
     <Compile Include="LedThing.cs" />
+    <Compile Include="Loger.cs" />
     <Compile Include="ManipulatorThing.cs" />
+    <Compile Include="Messenger.cs" />
     <Compile Include="PalletaizerThing.cs" />
     <Compile Include="RemoutTerminalThing.cs" />
     <Compile Include="robo.cs">

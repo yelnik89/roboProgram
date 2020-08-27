@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            this.KeyText = new System.Windows.Forms.Label();
             this.uuid = new System.Windows.Forms.TextBox();
             this.logBox = new System.Windows.Forms.RichTextBox();
             this.sendReqest = new System.Windows.Forms.Button();
@@ -41,7 +41,7 @@
             this.LoginText = new System.Windows.Forms.Label();
             this.passwordText = new System.Windows.Forms.Label();
             this.password = new System.Windows.Forms.TextBox();
-            this.autorizationType = new System.Windows.Forms.ComboBox();
+            this.authorizationType = new System.Windows.Forms.ComboBox();
             this.autorizationLabel = new System.Windows.Forms.Label();
             this.thingList = new System.Windows.Forms.ComboBox();
             this.ThingNameLabel = new System.Windows.Forms.Label();
@@ -50,15 +50,15 @@
             this.ParamsValues = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
-            // label1
+            // KeyText
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(9, 56);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(74, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "ключь (UUID)";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
+            this.KeyText.AutoSize = true;
+            this.KeyText.Location = new System.Drawing.Point(9, 56);
+            this.KeyText.Name = "KeyText";
+            this.KeyText.Size = new System.Drawing.Size(68, 13);
+            this.KeyText.TabIndex = 2;
+            this.KeyText.Text = "ключ (UUID)";
+            this.KeyText.Click += new System.EventHandler(this.label1_Click);
             // 
             // uuid
             // 
@@ -134,7 +134,6 @@
             this.login.Name = "login";
             this.login.Size = new System.Drawing.Size(146, 20);
             this.login.TabIndex = 11;
-            this.login.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // LoginText
             // 
@@ -162,18 +161,18 @@
             this.password.Size = new System.Drawing.Size(262, 20);
             this.password.TabIndex = 14;
             // 
-            // autorizationType
+            // authorizationType
             // 
-            this.autorizationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.autorizationType.FormattingEnabled = true;
-            this.autorizationType.Items.AddRange(new object[] {
+            this.authorizationType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.authorizationType.FormattingEnabled = true;
+            this.authorizationType.Items.AddRange(new object[] {
             "по ключу",
             "по логину"});
-            this.autorizationType.Location = new System.Drawing.Point(348, 82);
-            this.autorizationType.Margin = new System.Windows.Forms.Padding(2);
-            this.autorizationType.Name = "autorizationType";
-            this.autorizationType.Size = new System.Drawing.Size(83, 21);
-            this.autorizationType.TabIndex = 15;
+            this.authorizationType.Location = new System.Drawing.Point(348, 82);
+            this.authorizationType.Margin = new System.Windows.Forms.Padding(2);
+            this.authorizationType.Name = "authorizationType";
+            this.authorizationType.Size = new System.Drawing.Size(83, 21);
+            this.authorizationType.TabIndex = 15;
             // 
             // autorizationLabel
             // 
@@ -238,7 +237,7 @@
             this.Controls.Add(this.ThingName);
             this.Controls.Add(this.ThingNameLabel);
             this.Controls.Add(this.autorizationLabel);
-            this.Controls.Add(this.autorizationType);
+            this.Controls.Add(this.authorizationType);
             this.Controls.Add(this.password);
             this.Controls.Add(this.passwordText);
             this.Controls.Add(this.LoginText);
@@ -251,7 +250,7 @@
             this.Controls.Add(this.sendReqest);
             this.Controls.Add(this.logBox);
             this.Controls.Add(this.uuid);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.KeyText);
             this.Controls.Add(this.thingList);
             this.Name = "robo";
             this.Text = "robo";
@@ -262,7 +261,7 @@
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label KeyText;
         private System.Windows.Forms.TextBox uuid;
         private System.Windows.Forms.RichTextBox logBox;
         private System.Windows.Forms.Button sendReqest;
@@ -275,7 +274,7 @@
         private System.Windows.Forms.Label LoginText;
         private System.Windows.Forms.Label passwordText;
         private System.Windows.Forms.TextBox password;
-        private System.Windows.Forms.ComboBox autorizationType;
+        private System.Windows.Forms.ComboBox authorizationType;
         private System.Windows.Forms.Label autorizationLabel;
         private System.Windows.Forms.ComboBox thingList;
         private System.Windows.Forms.Label ThingNameLabel;
