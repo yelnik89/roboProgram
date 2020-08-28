@@ -48,6 +48,9 @@
             this.ThingName = new System.Windows.Forms.TextBox();
             this.ParamsNames = new System.Windows.Forms.RichTextBox();
             this.ParamsValues = new System.Windows.Forms.RichTextBox();
+            this.CicleRequestStart = new System.Windows.Forms.Button();
+            this.Temp = new System.Windows.Forms.TextBox();
+            this.TextToTime = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // KeyText
@@ -71,13 +74,13 @@
             this.logBox.Location = new System.Drawing.Point(10, 121);
             this.logBox.Name = "logBox";
             this.logBox.ReadOnly = true;
-            this.logBox.Size = new System.Drawing.Size(538, 621);
+            this.logBox.Size = new System.Drawing.Size(540, 621);
             this.logBox.TabIndex = 4;
             this.logBox.Text = "";
             // 
             // sendReqest
             // 
-            this.sendReqest.Location = new System.Drawing.Point(441, 81);
+            this.sendReqest.Location = new System.Drawing.Point(339, 51);
             this.sendReqest.Name = "sendReqest";
             this.sendReqest.Size = new System.Drawing.Size(108, 23);
             this.sendReqest.TabIndex = 5;
@@ -87,9 +90,9 @@
             // 
             // myIP
             // 
-            this.myIP.Location = new System.Drawing.Point(441, 51);
+            this.myIP.Location = new System.Drawing.Point(458, 51);
             this.myIP.Name = "myIP";
-            this.myIP.Size = new System.Drawing.Size(108, 23);
+            this.myIP.Size = new System.Drawing.Size(92, 23);
             this.myIP.TabIndex = 6;
             this.myIP.Text = "запрос на myIP";
             this.myIP.UseVisualStyleBackColor = true;
@@ -186,7 +189,7 @@
             // thingList
             // 
             this.thingList.FormattingEnabled = true;
-            this.thingList.Location = new System.Drawing.Point(585, 24);
+            this.thingList.Location = new System.Drawing.Point(766, 24);
             this.thingList.Name = "thingList";
             this.thingList.Size = new System.Drawing.Size(260, 21);
             this.thingList.TabIndex = 17;
@@ -195,7 +198,7 @@
             // ThingNameLabel
             // 
             this.ThingNameLabel.AutoSize = true;
-            this.ThingNameLabel.Location = new System.Drawing.Point(582, 56);
+            this.ThingNameLabel.Location = new System.Drawing.Point(763, 56);
             this.ThingNameLabel.Name = "ThingNameLabel";
             this.ThingNameLabel.Size = new System.Drawing.Size(65, 13);
             this.ThingNameLabel.TabIndex = 90;
@@ -203,14 +206,14 @@
             // 
             // ThingName
             // 
-            this.ThingName.Location = new System.Drawing.Point(653, 53);
+            this.ThingName.Location = new System.Drawing.Point(834, 53);
             this.ThingName.Name = "ThingName";
             this.ThingName.Size = new System.Drawing.Size(192, 20);
             this.ThingName.TabIndex = 91;
             // 
             // ParamsNames
             // 
-            this.ParamsNames.Location = new System.Drawing.Point(585, 121);
+            this.ParamsNames.Location = new System.Drawing.Point(766, 121);
             this.ParamsNames.Name = "ParamsNames";
             this.ParamsNames.ReadOnly = true;
             this.ParamsNames.Size = new System.Drawing.Size(111, 621);
@@ -219,18 +222,49 @@
             // 
             // ParamsValues
             // 
-            this.ParamsValues.Location = new System.Drawing.Point(702, 121);
+            this.ParamsValues.Location = new System.Drawing.Point(883, 121);
             this.ParamsValues.Name = "ParamsValues";
             this.ParamsValues.ReadOnly = true;
             this.ParamsValues.Size = new System.Drawing.Size(143, 621);
             this.ParamsValues.TabIndex = 93;
             this.ParamsValues.Text = "";
             // 
+            // CicleRequestStart
+            // 
+            this.CicleRequestStart.Enabled = false;
+            this.CicleRequestStart.Location = new System.Drawing.Point(573, 56);
+            this.CicleRequestStart.Name = "CicleRequestStart";
+            this.CicleRequestStart.Size = new System.Drawing.Size(158, 47);
+            this.CicleRequestStart.TabIndex = 94;
+            this.CicleRequestStart.Text = "START";
+            this.CicleRequestStart.UseVisualStyleBackColor = true;
+            this.CicleRequestStart.Click += new System.EventHandler(this.CircleRequestStart_Click);
+            // 
+            // Temp
+            // 
+            this.Temp.Location = new System.Drawing.Point(687, 24);
+            this.Temp.Name = "Temp";
+            this.Temp.Size = new System.Drawing.Size(44, 20);
+            this.Temp.TabIndex = 95;
+            this.Temp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Temp_KeyPress);
+            // 
+            // TextToTime
+            // 
+            this.TextToTime.AutoSize = true;
+            this.TextToTime.Location = new System.Drawing.Point(570, 27);
+            this.TextToTime.Name = "TextToTime";
+            this.TextToTime.Size = new System.Drawing.Size(111, 13);
+            this.TextToTime.TabIndex = 96;
+            this.TextToTime.Text = "частота опроса в мс";
+            // 
             // robo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(857, 754);
+            this.ClientSize = new System.Drawing.Size(1219, 754);
+            this.Controls.Add(this.TextToTime);
+            this.Controls.Add(this.Temp);
+            this.Controls.Add(this.CicleRequestStart);
             this.Controls.Add(this.ParamsValues);
             this.Controls.Add(this.ParamsNames);
             this.Controls.Add(this.ThingName);
@@ -280,6 +314,9 @@
         private System.Windows.Forms.TextBox ThingName;
         private System.Windows.Forms.RichTextBox ParamsNames;
         private System.Windows.Forms.RichTextBox ParamsValues;
+        private System.Windows.Forms.Button CicleRequestStart;
+        private System.Windows.Forms.TextBox Temp;
+        private System.Windows.Forms.Label TextToTime;
     }
 }
 

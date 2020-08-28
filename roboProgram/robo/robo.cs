@@ -18,8 +18,10 @@ namespace robo
     {
         private const string PROPERTY_URI = "/Properties";
         private const string THINGS_URI = "/Thingworx/Things";
+        private bool cicleRun = false;
         private ThingsFactory factory;
         private AllThingsJson.Rootobject allThings;
+        private Dictionary<string, Dictionary<string, string>> allThingsProperty;
 
 
 
@@ -61,6 +63,8 @@ namespace robo
             {
                 if (authorizationType.SelectedIndex == 0) log("указанный ключ: " + uuid.Text);
                 this.allThings = await getThingsAsync(address);
+                if (this.allThings != null) CicleRequestStart.Enabled = true;
+                this.allThingsProperty = new Dictionary<string, Dictionary<string, string>>(this.allThings.rows.Length);
                 fullingThingList(this.allThings);
             }
         }
@@ -75,6 +79,12 @@ namespace robo
                 fullingParams(property);
             }
 
+        }
+
+        private void CircleRequestStart_Click(object sender, EventArgs e)
+        {
+            if (cicleRun) stopCicleRequest();
+            else startCicleRequest();
         }
 
         private async Task<AllThingsJson.Rootobject> getThingsAsync(string address)
@@ -221,6 +231,7 @@ namespace robo
             log(result);
             if (error) return "error";
             return result;
+
         }
 
         private void sendData(HttpWebRequest req, string json)
@@ -278,15 +289,41 @@ namespace robo
             return authType;
         }
 
+        private void startCicleRequest()
+        {
+            CicleRequestStart.Text = "STOP";
+            this.cicleRun = true;
+            cicleMethod();
+        }
+
+        private void stopCicleRequest()
+        {
+            this.cicleRun = false;
+            CicleRequestStart.Text = "START";
+        }
+
         private async void cicleMethod()
         {
             Messenger messenger = new Messenger(AuthInfo(), Address(), AuthorizationType());
             string json;
-            foreach (AllThingsJson.Row row in this.allThings.rows)
+            while (this.cicleRun)
             {
-                json = await messenger.getProperty(row.name);
-
+                foreach (AllThingsJson.Row row in this.allThings.rows)
+                {
+                    json = await getPropertyAsync(row.name);
+                    this.allThingsProperty.Add(row.name, this.factory.getThing(json));
+                    log(json);
+                    if (!this.cicleRun) return;
+                }
+                await Task.Delay(temp());
             }
+            
+        }
+
+        private int temp()
+        {
+            if (Temp.Text.Length == 0) return 0;
+            else return int.Parse(Temp.Text);
         }
 
         private void log(string text)
@@ -307,6 +344,16 @@ namespace robo
         private void robo_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void Temp_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+
+            if (!Char.IsDigit(number))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
