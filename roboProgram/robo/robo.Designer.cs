@@ -58,7 +58,6 @@
             this.KeyText.Size = new System.Drawing.Size(68, 13);
             this.KeyText.TabIndex = 2;
             this.KeyText.Text = "ключ (UUID)";
-            this.KeyText.Click += new System.EventHandler(this.label1_Click);
             // 
             // uuid
             // 

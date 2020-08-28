@@ -16,9 +16,11 @@ namespace robo
 {
     public partial class robo : Form
     {
-        private ThingsFactory factory;
         private const string PROPERTY_URI = "/Properties";
         private const string THINGS_URI = "/Thingworx/Things";
+        private ThingsFactory factory;
+        private AllThingsJson.Rootobject allThings;
+
 
 
         public robo()
@@ -27,16 +29,12 @@ namespace robo
             authorizationType.SelectedIndex = 0;
             this.factory = new ThingsFactory();
         }
-        
-        private void label1_Click(object sender, EventArgs e)
-        {
 
-        }
-
-        private void sendReqest_Click(object sender, EventArgs e)
+        private async void sendReqest_Click(object sender, EventArgs e)
         {
             bool error = false;
-            string address = getAddress();
+            string address = Address();
+            if (address.Equals("")) error = true;
             if (authorizationType.SelectedIndex == 0)
             {
                 if (uuid.Text.Length == 0)
@@ -58,12 +56,12 @@ namespace robo
                     error = true;
                 }
             }
-            if (address.Equals("")) error = true;
 
             if (!error)
             {
                 if (authorizationType.SelectedIndex == 0) log("указанный ключ: " + uuid.Text);
-                getThingsAsync(address);
+                this.allThings = await getThingsAsync(address);
+                fullingThingList(this.allThings);
             }
         }
 
@@ -79,67 +77,28 @@ namespace robo
 
         }
 
-        private async void getThingsAsync(string address)
+        private async Task<AllThingsJson.Rootobject> getThingsAsync(string address)
         {
-            bool error = false;
-            string json = "";
             HttpWebRequest req = request("GET", address);
+            string json = await sendHttpRequestAsync(req);
+            if (json.Equals("error")) return null;
 
-            await Task.Run(() =>
-            {
-                try
-                {
-                    using (var responseStream = req.GetResponse().GetResponseStream())
-                    using (var reader = new StreamReader(responseStream))
-                    {
-                        json = reader.ReadToEnd();
-                    }
-                }
-                catch(Exception e)
-                {
-                    json = e.Message;
-                    error = true;
-                }
-            });
-
-            log(json);
-            if (!error) fullingThingList(json);
+            return JsonConvert.DeserializeObject<AllThingsJson.Rootobject>(json);
         }
 
+        
         private async Task<string> getPropertyAsync(string name)
         {
             log("get Property");
-            bool error = false;
-            string json = "";
-            HttpWebRequest req = request("GET", getPropertyAddress(name));
-            await Task.Run(() =>
-            {
-                try
-                {
-                    using (var responseStream = req.GetResponse().GetResponseStream())
-                    using (var reader = new StreamReader(responseStream))
-                    {
-                        json = reader.ReadToEnd();
-                    }
-                }
-                catch (Exception e)
-                {
-                    error = true;
-                    json = e.Message;
-                }
-            });
-            log(json);
-            if (error)
-            {
-                return "Error";
-            }
+            HttpWebRequest req = request("GET", PropertyAddress(name));
+            string json = await sendHttpRequestAsync(req);
             return json;
         }
 
         private string getProperty(string name)
         {
             log("get Property");
-            string address = getPropertyAddress(name);
+            string address = PropertyAddress(name);
             string result = httpRequest("GET", address);
             return result;
         }
@@ -161,16 +120,8 @@ namespace robo
             }
         }
 
-        private void paramFieldClin()
+        private void fullingThingList(AllThingsJson.Rootobject allThings)
         {
-            ThingName.Text = null;
-            ParamsValues.Text = null;
-            ParamsNames.Text = null;
-        }
-        
-        private void fullingThingList(string json)
-        {
-            AllThingsJson.Rootobject allThings = JsonConvert.DeserializeObject<AllThingsJson.Rootobject>(json);
             foreach (AllThingsJson.Row row in allThings.rows)
             {
                 thingList.Items.Add(row);
@@ -178,13 +129,13 @@ namespace robo
 
             thingList.SelectedIndex = 0;
         }
-                
-        private string httpRequest (string method, string url, string json = "")
+
+        private string httpRequest(string method, string url, string json = "")
         {
             HttpWebRequest req = request(method, url);
 
             if (method.Equals("POST") || method.Equals("PUT")) sendData(req, json);
-            var result = sendRequest(req);
+            string result = sendRequest(req);
 
             return result;
         }
@@ -200,6 +151,13 @@ namespace robo
             return req;
         }
 
+        private void paramFieldClin()
+        {
+            ThingName.Text = null;
+            ParamsValues.Text = null;
+            ParamsNames.Text = null;
+        }
+
         private void authorization(HttpWebRequest req)
         {
             string authInfo = login.Text + ":" + password.Text;
@@ -208,7 +166,7 @@ namespace robo
             if (authorizationType.SelectedIndex == 0) req.Headers["appkey"] = uuid.Text;
         }
 
-        private string getAuthInfo()
+        private string AuthInfo()
         {
             string authInfo = "";
             if (authorizationType.SelectedIndex == 1)
@@ -240,21 +198,28 @@ namespace robo
             return result;
         }
 
-        private string sendRequestAsync(HttpWebRequest req)
+        private async Task<string> sendHttpRequestAsync(HttpWebRequest req)
         {
-            string result;
-            try
+            bool error = false;
+            string result = "";
+            await Task.Run(() =>
             {
-                using (var responseStream = req.GetResponse().GetResponseStream())
-                using (var reader = new StreamReader(responseStream))
+                try
                 {
-                    result = reader.ReadToEnd();
+                    using (var responseStream = req.GetResponse().GetResponseStream())
+                    using (var reader = new StreamReader(responseStream))
+                    {
+                        result = reader.ReadToEnd();
+                    }
                 }
-            }
-            catch (Exception e)
-            {
-                result = e.Message;
-            }
+                catch (Exception e)
+                {
+                    error = true;
+                    result = e.Message;
+                }
+            });
+            log(result);
+            if (error) return "error";
             return result;
         }
 
@@ -273,7 +238,7 @@ namespace robo
             httpRequest("GET", "https://api.myip.com");
         }
 
-        private string getAddress()
+        private string Address()
         {
             bool error = false;
             string address = "http://" + ip.Text + ":" + port.Text + THINGS_URI;
@@ -297,20 +262,31 @@ namespace robo
             }
         }
 
-        private string getPropertyAddress(string name)
+        private string PropertyAddress(string name)
         {
-            string address = getAddress() + "/" + name + PROPERTY_URI;
+            string address = Address() + "/" + name + PROPERTY_URI;
             if (address.Equals("")) return "";
             log(address);
             return address;
         }
 
-        private string getAuthorizationType()
+        private string AuthorizationType()
         {
             string authType = "";
             if (authorizationType.SelectedIndex == 0) authType = "appkey";
             if (authorizationType.SelectedIndex == 1) authType = "Basic";
             return authType;
+        }
+
+        private async void cicleMethod()
+        {
+            Messenger messenger = new Messenger(AuthInfo(), Address(), AuthorizationType());
+            string json;
+            foreach (AllThingsJson.Row row in this.allThings.rows)
+            {
+                json = await messenger.getProperty(row.name);
+
+            }
         }
 
         private void log(string text)

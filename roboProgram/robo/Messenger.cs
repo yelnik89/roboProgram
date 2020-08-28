@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace robo
 {
@@ -30,22 +31,28 @@ namespace robo
 
         public string getProperty(string name)
         {
-            //log("get Property");
             string address = getPropertyAddress(name);
             string result = httpRequest("GET", address);
+
             return result;
         }
         
         private string httpRequest(string method, string url, string json = "")
         {
-            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
-            req.Method = method;
-            authorization(req, this.authInfo);
-            req.Accept = "application/json";
+            HttpWebRequest req = request(method, url);
             if (method.Equals("POST") || method.Equals("PUT")) sendData(req, json);
             string result = sendRequest(req);
 
             return result;
+        }
+
+        private HttpWebRequest request(string url, string method)
+        {
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+            req.Method = method;
+            authorization(req, this.authInfo);
+            req.Accept = "application/json";
+            return req;
         }
 
         private string sendRequest(HttpWebRequest req)
