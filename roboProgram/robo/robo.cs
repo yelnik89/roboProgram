@@ -311,7 +311,8 @@ namespace robo
                 foreach (AllThingsJson.Row row in this.allThings.rows)
                 {
                     json = await getPropertyAsync(row.name);
-                    this.allThingsProperty.Add(row.name, this.factory.getThing(json));
+                    if (this.allThingsProperty.ContainsKey(row.name)) this.allThingsProperty[row.name] = this.factory.getThing(json);
+                    else this.allThingsProperty.Add(row.name, this.factory.getThing(json));
                     log(json);
                     if (!this.cicleRun) return;
                 }
@@ -353,6 +354,24 @@ namespace robo
             if (!Char.IsDigit(number))
             {
                 e.Handled = true;
+            }
+        }
+
+        private void Team1_Click(object sender, EventArgs e)
+        {
+            itemInfo(Team1.Text);
+        }
+
+        private void itemInfo(string teamName)
+        {
+            FileReader reader = new FileReader();
+            try
+            {
+                Dictionary<string, string[]> text = reader.itemInfo(teamName);
+            }
+            catch (Exception exception)
+            {
+                log(exception.Message);
             }
         }
     }

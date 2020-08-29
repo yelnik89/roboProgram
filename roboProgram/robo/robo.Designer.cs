@@ -51,6 +51,7 @@
             this.CicleRequestStart = new System.Windows.Forms.Button();
             this.Temp = new System.Windows.Forms.TextBox();
             this.TextToTime = new System.Windows.Forms.Label();
+            this.Team1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // KeyText
@@ -257,11 +258,22 @@
             this.TextToTime.TabIndex = 96;
             this.TextToTime.Text = "частота опроса в мс";
             // 
+            // Team1
+            // 
+            this.Team1.Location = new System.Drawing.Point(1047, 21);
+            this.Team1.Name = "Team1";
+            this.Team1.Size = new System.Drawing.Size(75, 23);
+            this.Team1.TabIndex = 97;
+            this.Team1.Text = "Team1";
+            this.Team1.UseVisualStyleBackColor = true;
+            this.Team1.Click += new System.EventHandler(this.Team1_Click);
+            // 
             // robo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1219, 754);
+            this.Controls.Add(this.Team1);
             this.Controls.Add(this.TextToTime);
             this.Controls.Add(this.Temp);
             this.Controls.Add(this.CicleRequestStart);
@@ -317,6 +329,7 @@
         private System.Windows.Forms.Button CicleRequestStart;
         private System.Windows.Forms.TextBox Temp;
         private System.Windows.Forms.Label TextToTime;
+        private System.Windows.Forms.Button Team1;
     }
 }
 

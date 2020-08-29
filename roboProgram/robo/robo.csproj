@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="FileReader.cs" />
     <Compile Include="LedPropertys.cs" />
     <Compile Include="LedThing.cs" />
     <Compile Include="Loger.cs" />
