@@ -52,6 +52,10 @@
             this.Temp = new System.Windows.Forms.TextBox();
             this.TextToTime = new System.Windows.Forms.Label();
             this.Team1 = new System.Windows.Forms.Button();
+            this.TeamStart = new System.Windows.Forms.Button();
+            this.AllThingsLabel = new System.Windows.Forms.Label();
+            this.TeamThingsList = new System.Windows.Forms.ComboBox();
+            this.TeamThingsLabel = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // KeyText
@@ -190,16 +194,16 @@
             // thingList
             // 
             this.thingList.FormattingEnabled = true;
-            this.thingList.Location = new System.Drawing.Point(766, 24);
+            this.thingList.Location = new System.Drawing.Point(834, 24);
             this.thingList.Name = "thingList";
-            this.thingList.Size = new System.Drawing.Size(260, 21);
+            this.thingList.Size = new System.Drawing.Size(192, 21);
             this.thingList.TabIndex = 17;
             this.thingList.SelectedIndexChanged += new System.EventHandler(this.thingList_SelectedIndexChanged);
             // 
             // ThingNameLabel
             // 
             this.ThingNameLabel.AutoSize = true;
-            this.ThingNameLabel.Location = new System.Drawing.Point(763, 56);
+            this.ThingNameLabel.Location = new System.Drawing.Point(763, 86);
             this.ThingNameLabel.Name = "ThingNameLabel";
             this.ThingNameLabel.Size = new System.Drawing.Size(65, 13);
             this.ThingNameLabel.TabIndex = 90;
@@ -207,7 +211,7 @@
             // 
             // ThingName
             // 
-            this.ThingName.Location = new System.Drawing.Point(834, 53);
+            this.ThingName.Location = new System.Drawing.Point(834, 83);
             this.ThingName.Name = "ThingName";
             this.ThingName.Size = new System.Drawing.Size(192, 20);
             this.ThingName.TabIndex = 91;
@@ -268,11 +272,50 @@
             this.Team1.UseVisualStyleBackColor = true;
             this.Team1.Click += new System.EventHandler(this.Team1_Click);
             // 
+            // TeamStart
+            // 
+            this.TeamStart.Location = new System.Drawing.Point(573, 121);
+            this.TeamStart.Name = "TeamStart";
+            this.TeamStart.Size = new System.Drawing.Size(158, 51);
+            this.TeamStart.TabIndex = 98;
+            this.TeamStart.UseVisualStyleBackColor = true;
+            this.TeamStart.Click += new System.EventHandler(this.TeamStart_Click);
+            // 
+            // AllThingsLabel
+            // 
+            this.AllThingsLabel.AutoSize = true;
+            this.AllThingsLabel.Location = new System.Drawing.Point(763, 27);
+            this.AllThingsLabel.Name = "AllThingsLabel";
+            this.AllThingsLabel.Size = new System.Drawing.Size(64, 13);
+            this.AllThingsLabel.TabIndex = 99;
+            this.AllThingsLabel.Text = "All things list";
+            // 
+            // TeamThingsList
+            // 
+            this.TeamThingsList.FormattingEnabled = true;
+            this.TeamThingsList.Location = new System.Drawing.Point(834, 53);
+            this.TeamThingsList.Name = "TeamThingsList";
+            this.TeamThingsList.Size = new System.Drawing.Size(192, 21);
+            this.TeamThingsList.TabIndex = 100;
+            // 
+            // TeamThingsLabel
+            // 
+            this.TeamThingsLabel.AutoSize = true;
+            this.TeamThingsLabel.Location = new System.Drawing.Point(763, 56);
+            this.TeamThingsLabel.Name = "TeamThingsLabel";
+            this.TeamThingsLabel.Size = new System.Drawing.Size(65, 13);
+            this.TeamThingsLabel.TabIndex = 101;
+            this.TeamThingsLabel.Text = "Team things";
+            // 
             // robo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1219, 754);
+            this.Controls.Add(this.TeamThingsLabel);
+            this.Controls.Add(this.TeamThingsList);
+            this.Controls.Add(this.AllThingsLabel);
+            this.Controls.Add(this.TeamStart);
             this.Controls.Add(this.Team1);
             this.Controls.Add(this.TextToTime);
             this.Controls.Add(this.Temp);
@@ -330,6 +373,10 @@
         private System.Windows.Forms.TextBox Temp;
         private System.Windows.Forms.Label TextToTime;
         private System.Windows.Forms.Button Team1;
+        private System.Windows.Forms.Button TeamStart;
+        private System.Windows.Forms.Label AllThingsLabel;
+        private System.Windows.Forms.ComboBox TeamThingsList;
+        private System.Windows.Forms.Label TeamThingsLabel;
     }
 }
 

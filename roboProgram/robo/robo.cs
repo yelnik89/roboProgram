@@ -21,7 +21,8 @@ namespace robo
         private bool cicleRun = false;
         private ThingsFactory factory;
         private AllThingsJson.Rootobject allThings;
-        private Dictionary<string, Dictionary<string, string>> allThingsProperty;
+        private Dictionary<string, Dictionary<string, string>> thingsProperty;
+        private List<string[]> teamSettings;
 
 
 
@@ -63,16 +64,19 @@ namespace robo
             {
                 if (authorizationType.SelectedIndex == 0) log("указанный ключ: " + uuid.Text);
                 this.allThings = await getThingsAsync(address);
-                if (this.allThings != null) CicleRequestStart.Enabled = true;
-                this.allThingsProperty = new Dictionary<string, Dictionary<string, string>>(this.allThings.rows.Length);
-                fullingThingList(this.allThings);
+                if (this.allThings != null)
+                {
+                    CicleRequestStart.Enabled = true;
+                    this.thingsProperty = new Dictionary<string, Dictionary<string, string>>(this.allThings.rows.Length);
+                    fullingThingList(this.allThings);
+                }
             }
         }
 
         private async void thingList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            AllThingsJson.Row thing = (AllThingsJson.Row)thingList.SelectedItem;
-            string json = await getPropertyAsync(thing.name);
+            string thingName = (string)thingList.SelectedItem;
+            string json = await getPropertyAsync(thingName);
             if (!json.Equals("Error"))
             {
                 Dictionary<string, string> property = this.factory.getThing(json);
@@ -134,7 +138,7 @@ namespace robo
         {
             foreach (AllThingsJson.Row row in allThings.rows)
             {
-                thingList.Items.Add(row);
+                thingList.Items.Add(row.name);
             }
 
             thingList.SelectedIndex = 0;
@@ -293,7 +297,7 @@ namespace robo
         {
             CicleRequestStart.Text = "STOP";
             this.cicleRun = true;
-            cicleMethod();
+            cicleMethod(this.allThings);
         }
 
         private void stopCicleRequest()
@@ -302,23 +306,40 @@ namespace robo
             CicleRequestStart.Text = "START";
         }
 
-        private async void cicleMethod()
+        private async void cicleMethod(AllThingsJson.Rootobject allThings)
         {
             Messenger messenger = new Messenger(AuthInfo(), Address(), AuthorizationType());
-            string json;
             while (this.cicleRun)
             {
-                foreach (AllThingsJson.Row row in this.allThings.rows)
+                foreach (AllThingsJson.Row row in allThings.rows)
                 {
-                    json = await getPropertyAsync(row.name);
-                    if (this.allThingsProperty.ContainsKey(row.name)) this.allThingsProperty[row.name] = this.factory.getThing(json);
-                    else this.allThingsProperty.Add(row.name, this.factory.getThing(json));
-                    log(json);
-                    if (!this.cicleRun) return;
+                    cicleGetPropertyAsync(row.name);
                 }
                 await Task.Delay(temp());
             }
             
+        }
+
+        private async void cicleMethod(List<string[]> teamList)
+        {
+            Messenger messenger = new Messenger(AuthInfo(), Address(), AuthorizationType());
+            while (this.cicleRun)
+            {
+                foreach (string[] teamThings in teamList)
+                {
+                    cicleGetPropertyAsync(teamThings[4]);
+                }
+                await Task.Delay(temp());
+            }
+        }
+
+        private async void cicleGetPropertyAsync(string name)
+        {
+            string json = await getPropertyAsync(name);
+            if (this.thingsProperty.ContainsKey(name)) this.thingsProperty[name] = this.factory.getThing(json);
+            else this.thingsProperty.Add(name, this.factory.getThing(json));
+            log(json);
+            if (!this.cicleRun) return;
         }
 
         private int temp()
@@ -360,19 +381,37 @@ namespace robo
         private void Team1_Click(object sender, EventArgs e)
         {
             itemInfo(Team1.Text);
+            fullingTeamThingsList(this.teamSettings);
         }
 
         private void itemInfo(string teamName)
         {
+            log("select " + teamName);
             FileReader reader = new FileReader();
             try
             {
-                Dictionary<string, string[]> text = reader.itemInfo(teamName);
+                this.teamSettings = reader.itemInfo(teamName);
+                TeamStart.Text = teamName;
             }
             catch (Exception exception)
             {
                 log(exception.Message);
             }
+        }
+
+        private void fullingTeamThingsList(List<string[]> teamList)
+        {
+            foreach (string[] s in teamList)
+            {
+                TeamThingsList.Items.Add(s[4]);
+            }
+            TeamThingsList.SelectedIndex = 0;
+        }
+
+        private void TeamStart_Click(object sender, EventArgs e)
+        {
+            if (cicleRun) stopCicleRequest();
+            else startCicleRequest();
         }
     }
 }

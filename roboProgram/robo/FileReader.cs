@@ -28,7 +28,7 @@ namespace robo
             return result;
         }
 
-        public Dictionary<string, string[]> itemInfo(string name)
+        public List<string[]> itemInfo(string name)
         {
             string fileText = "";
             try
@@ -39,7 +39,7 @@ namespace robo
             {
                 throw;
             }
-            Dictionary<string, string[]> result = splitString(fileText);
+            List<string[]> result = splitString(fileText);
             return result;
         }
 
@@ -48,14 +48,14 @@ namespace robo
             return "_" + name + FORMAT;
         }
 
-        private Dictionary<string, string[]> splitString(string text)
+        private List<string[]> splitString(string text)
         {
-            Dictionary<string, string[]> result = new Dictionary<string, string[]>();
-            string[] splitStrings = text.Split('\n');
+            List<string[]> result = new List<string[]>();
+            string[] splitStrings = text.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
             foreach (string s in splitStrings)
             {
-                string[] array = s.Split(';');
-                result.Add(array[0],array);
+                string[] array = s.Split(new char[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                result.Add(array);
             }
             return result;
         }
