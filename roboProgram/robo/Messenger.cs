@@ -9,7 +9,7 @@ namespace robo
 {
     class Messenger
     {
-        private const string PROPERTY_URI = "/Properties";
+        private const string PROPERTY_URI = "/Services/InOutService";
         private const string THINGS_URI = "/Thingworx/Things";
 
         private string authInfo;
@@ -32,7 +32,7 @@ namespace robo
         public string getProperty(string name)
         {
             string address = getPropertyAddress(name);
-            string result = httpRequest("GET", address);
+            string result = httpRequest("POST", address);
 
             return result;
         }
@@ -64,12 +64,13 @@ namespace robo
                 using (var reader = new StreamReader(responseStream))
                 {
                     result = reader.ReadToEnd();
+                    log(result);
                     //log(result);
                 }
             }
             catch (Exception e)
             {
-                //log(e.Message);
+                log(e.Message);
                 result = e.Message;
             }
             return result;
@@ -95,6 +96,7 @@ namespace robo
         {
             string address = this.address + "/" + name + PROPERTY_URI;
             if (address.Equals("")) return "";
+            log(address);
             //log(address);
             return address;
         }
@@ -104,6 +106,11 @@ namespace robo
             if (this.authorizationType.Equals("Basic")) req.Headers["Authorization"] = "Basic " + authInfo;
             if (this.authorizationType.Equals("appkey")) req.Headers["appkey"] = authInfo;
         }
-        
+
+        private void log(string text)
+        {
+            Loger loger = Loger.getInstance();
+            loger.writeLog(text);
+        }
     }
 }

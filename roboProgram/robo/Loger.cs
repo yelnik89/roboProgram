@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,16 +9,28 @@ namespace robo
 {
     class Loger
     {
+        private const string LOGFILE = "log.txt";
 
-        private void log(string text)
+        private static Loger loger;
+
+        private Loger()
+        { }
+
+        public static Loger getInstance()
         {
-            //logBox.AppendText(text + Environment.NewLine);
-            //logBox.ScrollToCaret();
-            //using (FileStream file = new FileStream("log.txt", FileMode.Append))
-            //{
-                //byte[] array = System.Text.Encoding.Default.GetBytes(text + '\n');
-                //file.Write(array, 0, array.Length);
-            //}
+            if (loger == null)
+                loger = new Loger();
+            return loger;
+        }
+
+
+        public void writeLog(string text)
+        {
+            using(FileStream file = new FileStream(LOGFILE, FileMode.Append))
+            {
+                byte[] array = Encoding.Default.GetBytes(text + '\n');
+                file.Write(array, 0, array.Length);
+            }
         }
     }
 }

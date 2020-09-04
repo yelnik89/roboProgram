@@ -10,19 +10,23 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Net.Sockets;
 using System.Threading;
 
 namespace robo
 {
     public partial class robo : Form
     {
-        private const string PROPERTY_URI = "/Properties";
+        private const string PROPERTY_URI = "/Services/InOutService";
         private const string THINGS_URI = "/Thingworx/Things";
         private bool cicleRun = false;
+        private bool teamCicleRun = false;
+        private string teamName;
         private ThingsFactory factory;
         private AllThingsJson.Rootobject allThings;
         private Dictionary<string, Dictionary<string, string>> thingsProperty;
         private List<string[]> teamSettings;
+        private RequestJson json;
 
 
 
@@ -31,42 +35,19 @@ namespace robo
             InitializeComponent();
             authorizationType.SelectedIndex = 0;
             this.factory = new ThingsFactory();
+            this.json = new RequestJson();
         }
 
         private async void sendReqest_Click(object sender, EventArgs e)
         {
-            bool error = false;
-            string address = Address();
-            if (address.Equals("")) error = true;
-            if (authorizationType.SelectedIndex == 0)
+            if (checkFields())
             {
-                if (uuid.Text.Length == 0)
-                {
-                    log("не указан Ключ!!!");
-                    error = true;
-                }
-            }
-            else if (authorizationType.SelectedIndex == 1)
-            {
-                if (login.Text.Length == 0)
-                {
-                    log("не указан логин!!!");
-                    error = true;
-                }
-                if (password.Text.Length == 0)
-                {
-                    log("не введен пароль!!!");
-                    error = true;
-                }
-            }
-
-            if (!error)
-            {
+                string address = Address();
                 if (authorizationType.SelectedIndex == 0) log("указанный ключ: " + uuid.Text);
                 this.allThings = await getThingsAsync(address);
                 if (this.allThings != null)
                 {
-                    CicleRequestStart.Enabled = true;
+                    //CicleRequestStart.Enabled = true;
                     this.thingsProperty = new Dictionary<string, Dictionary<string, string>>(this.allThings.rows.Length);
                     fullingThingList(this.allThings);
                 }
@@ -76,7 +57,7 @@ namespace robo
         private async void thingList_SelectedIndexChanged(object sender, EventArgs e)
         {
             string thingName = (string)thingList.SelectedItem;
-            string json = await getPropertyAsync(thingName);
+            string json = await getPropertyAsync(thingName, "");                       //в метод вставлена заглушка, возможно этот метод здесь вообще вызываться не будет
             if (!json.Equals("Error"))
             {
                 Dictionary<string, string> property = this.factory.getThing(json);
@@ -101,11 +82,12 @@ namespace robo
         }
 
         
-        private async Task<string> getPropertyAsync(string name)
+        private async Task<string> getPropertyAsync(string name, string thingType)
         {
             log("get Property");
-            HttpWebRequest req = request("GET", PropertyAddress(name));
-            string json = await sendHttpRequestAsync(req);
+            string thingReq = this.json.getJson(thingType);
+            HttpWebRequest req = request("POST", PropertyAddress(name));
+            string json = await sendHttpRequestAsync(req, thingReq);
             return json;
         }
 
@@ -148,7 +130,11 @@ namespace robo
         {
             HttpWebRequest req = request(method, url);
 
-            if (method.Equals("POST") || method.Equals("PUT")) sendData(req, json);
+            if (method.Equals("POST") || method.Equals("PUT"))
+            {
+                req.Headers["x-thingworx-session"] = "true<]";
+                sendData(req, json);
+            }
             string result = sendRequest(req);
 
             return result;
@@ -212,9 +198,13 @@ namespace robo
             return result;
         }
 
-        private async Task<string> sendHttpRequestAsync(HttpWebRequest req)
+        private async Task<string> sendHttpRequestAsync(HttpWebRequest req, string json = "")
         {
-            bool error = false;
+            if (req.Method.Equals("POST"))
+            {
+                sendData(req, json);
+            }
+            bool error = true;
             string result = "";
             await Task.Run(() =>
             {
@@ -225,10 +215,10 @@ namespace robo
                     {
                         result = reader.ReadToEnd();
                     }
+                    error = false;
                 }
                 catch (Exception e)
                 {
-                    error = true;
                     result = e.Message;
                 }
             });
@@ -240,12 +230,14 @@ namespace robo
 
         private void sendData(HttpWebRequest req, string json)
         {
+            req.Headers["x-thingworx-session"] = "true";
             req.ContentType = "application/json";
             using (var requestStream = req.GetRequestStream())
             using (var streamWriter = new StreamWriter(requestStream))
             {
                 streamWriter.Write(json);
             }
+            log("send data: " + json);
         }
 
         private void myIP_Click(object sender, EventArgs e)
@@ -255,26 +247,13 @@ namespace robo
 
         private string Address()
         {
-            bool error = false;
-            string address = "http://" + ip.Text + ":" + port.Text + THINGS_URI;
-            if (ip.Text.Equals(""))
+            string address;
+            if (checkAddressField())
             {
-                log("не указан IP!!!");
-                error = true;
-            }
-            if (port.Text.Equals(""))
-            {
-                log("не указан порт!!!");
-                error = true;
-            }
-            if (!error)
-            {
+                address = "http://" + ip.Text + ":" + port.Text + THINGS_URI;
                 return address;
             }
-            else
-            {
-                return "";
-            }
+            return "";
         }
 
         private string PropertyAddress(string name)
@@ -313,7 +292,8 @@ namespace robo
             {
                 foreach (AllThingsJson.Row row in allThings.rows)
                 {
-                    cicleGetPropertyAsync(row.name);
+                    //await cicleGetPropertyAsync(row.name);
+                    if (!this.cicleRun) break;
                 }
                 await Task.Delay(temp());
             }
@@ -322,60 +302,57 @@ namespace robo
 
         private async void cicleMethod(List<string[]> teamList)
         {
+            byte[] data;
             Messenger messenger = new Messenger(AuthInfo(), Address(), AuthorizationType());
-            while (this.cicleRun)
+            while (this.teamCicleRun)
             {
                 foreach (string[] teamThings in teamList)
                 {
-                    cicleGetPropertyAsync(teamThings[4]);
+                    if (await cicleGetPropertyAsync(teamThings[4], teamThings[0]))
+                    {
+                        //data = sendData(teamThings[4]);
+                        //sendUDP(teamThings[2], int.Parse(teamThings[3]), data);
+                        if (!this.teamCicleRun) break;
+                    }
                 }
                 await Task.Delay(temp());
             }
         }
 
-        private async void cicleGetPropertyAsync(string name)
+        private async Task<bool> cicleGetPropertyAsync(string name, string thingType)
         {
-            string json = await getPropertyAsync(name);
-            if (this.thingsProperty.ContainsKey(name)) this.thingsProperty[name] = this.factory.getThing(json);
-            else this.thingsProperty.Add(name, this.factory.getThing(json));
+            string json = await getPropertyAsync(name, thingType);
             log(json);
-            if (!this.cicleRun) return;
-        }
-
-        private int temp()
-        {
-            if (Temp.Text.Length == 0) return 0;
-            else return int.Parse(Temp.Text);
-        }
-
-        private void log(string text)
-        {
-            logBoxWrite(text);
-            using (FileStream file = new FileStream("log.txt", FileMode.Append)){
-                byte[] array = Encoding.Default.GetBytes(text + '\n');
-                file.Write(array, 0, array.Length);
-            }
-        }
-
-        public void logBoxWrite(string log)
-        {
-            logBox.AppendText(log + Environment.NewLine);
-            logBox.ScrollToCaret();
-        }
-
-        private void robo_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Temp_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            char number = e.KeyChar;
-
-            if (!Char.IsDigit(number))
+            if (!json.Equals("error"))
             {
-                e.Handled = true;
+                if (this.thingsProperty.ContainsKey(name)) this.thingsProperty[name] = this.factory.getThing(json);
+                else this.thingsProperty.Add(name, this.factory.getThing(json));
+                return true;
             }
+            return false;
+        }
+
+        private byte[] sendData(string thing)
+        {
+            string sendData = "";
+            int i = 0;
+            foreach (KeyValuePair<string, string> property in this.thingsProperty[thing])
+            {
+                if(i >= 4 ) sendData += ":" + property.Value;
+                i++;
+            }
+            sendData += "#";
+            log("send to UDP");
+            log(sendData);
+            byte[] data = Encoding.Unicode.GetBytes(sendData);
+            return data;
+        }
+
+        private void sendUDP(string ip, int port, byte[] data)
+        {
+            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
+            EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(ip), port);
+            socket.SendTo(data, remotePoint);
         }
 
         private void Team1_Click(object sender, EventArgs e)
@@ -392,6 +369,8 @@ namespace robo
             {
                 this.teamSettings = reader.itemInfo(teamName);
                 TeamStart.Text = teamName;
+                this.teamName = teamName;
+                this.thingsProperty = new Dictionary<string, Dictionary<string, string>>(teamSettings.Count);
             }
             catch (Exception exception)
             {
@@ -410,8 +389,99 @@ namespace robo
 
         private void TeamStart_Click(object sender, EventArgs e)
         {
-            if (cicleRun) stopCicleRequest();
-            else startCicleRequest();
+            if (checkFields())
+            {
+                if (this.teamCicleRun) stopTeamCicleRequest();
+                else startTeamCicleRequest();
+            }
+        }
+
+        private void startTeamCicleRequest()
+        {
+            TeamStart.Text = "STOP";
+            this.teamCicleRun = true;
+            cicleMethod(this.teamSettings);
+        }
+
+        private void stopTeamCicleRequest()
+        {
+            this.teamCicleRun = false;
+            TeamStart.Text = this.teamName;
+        }
+
+        private bool checkFields()
+        {
+            bool error = false;
+            if (!checkAuthorizationField()) error = true;
+            if (!checkAddressField()) error = true;
+            return !error;
+        }
+
+        private bool checkAddressField()
+        {
+            bool error = false;
+            if (ip.Text.Equals(""))
+            {
+                log("не указан IP!!!");
+                error = true;
+            }
+            if (port.Text.Equals(""))
+            {
+                log("не указан порт!!!");
+                error = true;
+            }
+            return !error;
+        }
+
+        private bool checkAuthorizationField()
+        {
+            bool error = false;
+            if (authorizationType.SelectedIndex == 0)
+            {
+                if (uuid.Text.Length == 0)
+                {
+                    log("не указан Ключ!!!");
+                    error = true;
+                }
+            }
+            else if (authorizationType.SelectedIndex == 1)
+            {
+                if (login.Text.Length == 0)
+                {
+                    log("не указан логин!!!");
+                    error = true;
+                }
+                if (password.Text.Length == 0)
+                {
+                    log("не введен пароль!!!");
+                    error = true;
+                }
+            }
+            return !error;
+        }
+
+        private int temp()
+        {
+            if (Temp.Text.Length == 0) return 0;
+            else return int.Parse(Temp.Text);
+        }
+
+        private void log(string text)
+        {
+            Loger loger = Loger.getInstance();
+            logBox.AppendText(text + Environment.NewLine);
+            logBox.ScrollToCaret();
+            loger.writeLog(text);
+        }
+
+        private void Temp_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            char number = e.KeyChar;
+
+            if (!Char.IsDigit(number))
+            {
+                e.Handled = true;
+            }
         }
     }
 }

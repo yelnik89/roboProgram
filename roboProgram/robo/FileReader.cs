@@ -10,7 +10,6 @@ namespace robo
     class FileReader
     {
         private const string FORMAT = ".txt";
-        private const string LOG = "log";
 
         public string readFile(string name)
         {
