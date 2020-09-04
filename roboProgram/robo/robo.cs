@@ -17,7 +17,7 @@ namespace robo
 {
     public partial class robo : Form
     {
-        private const string PROPERTY_URI = "/Services/InOutService";
+        private const string PROPERTY_URI = "/Services/";
         private const string THINGS_URI = "/Thingworx/Things";
         private bool cicleRun = false;
         private bool teamCicleRun = false;
@@ -57,7 +57,7 @@ namespace robo
         private async void thingList_SelectedIndexChanged(object sender, EventArgs e)
         {
             string thingName = (string)thingList.SelectedItem;
-            string json = await getPropertyAsync(thingName, "");                       //в метод вставлена заглушка, возможно этот метод здесь вообще вызываться не будет
+            string json = await getPropertyAsync(thingName, "", "");                       //в метод вставлена заглушка, возможно этот метод здесь вообще вызываться не будет
             if (!json.Equals("Error"))
             {
                 Dictionary<string, string> property = this.factory.getThing(json);
@@ -82,11 +82,11 @@ namespace robo
         }
 
         
-        private async Task<string> getPropertyAsync(string name, string thingType)
+        private async Task<string> getPropertyAsync(string name, string thingType, string servisName)
         {
             log("get Property");
             string thingReq = this.json.getJson(thingType);
-            HttpWebRequest req = request("POST", PropertyAddress(name));
+            HttpWebRequest req = request("POST", PropertyAddress(name, servisName));
             string json = await sendHttpRequestAsync(req, thingReq);
             return json;
         }
@@ -256,9 +256,9 @@ namespace robo
             return "";
         }
 
-        private string PropertyAddress(string name)
+        private string PropertyAddress(string name, string servisName = "")
         {
-            string address = Address() + "/" + name + PROPERTY_URI;
+            string address = Address() + "/" + name + PROPERTY_URI + servisName;
             if (address.Equals("")) return "";
             log(address);
             return address;
@@ -308,9 +308,9 @@ namespace robo
             {
                 foreach (string[] teamThings in teamList)
                 {
-                    if (await cicleGetPropertyAsync(teamThings[4], teamThings[0]))
+                    if (await cicleGetPropertyAsync(teamThings[4], teamThings[0], teamThings[5]))
                     {
-                        //data = sendData(teamThings[4]);
+                        data = sendData(teamThings);   // вылетает ошибка на втором круге
                         //sendUDP(teamThings[2], int.Parse(teamThings[3]), data);
                         if (!this.teamCicleRun) break;
                     }
@@ -319,27 +319,25 @@ namespace robo
             }
         }
 
-        private async Task<bool> cicleGetPropertyAsync(string name, string thingType)
+        private async Task<bool> cicleGetPropertyAsync(string name, string thingType, string servisName)
         {
-            string json = await getPropertyAsync(name, thingType);
+            string json = await getPropertyAsync(name, thingType, servisName);
             log(json);
             if (!json.Equals("error"))
             {
                 if (this.thingsProperty.ContainsKey(name)) this.thingsProperty[name] = this.factory.getThing(json);
-                else this.thingsProperty.Add(name, this.factory.getThing(json));
+                else this.thingsProperty.Add(name, JsonConvert.DeserializeObject<Dictionary<string, string>>(json));
                 return true;
             }
             return false;
         }
 
-        private byte[] sendData(string thing)
+        private byte[] sendData(string[] thing)
         {
-            string sendData = "";
-            int i = 0;
-            foreach (KeyValuePair<string, string> property in this.thingsProperty[thing])
+            string sendData = thing[0];
+            foreach (KeyValuePair<string, string> property in this.thingsProperty[thing[4]])
             {
-                if(i >= 4 ) sendData += ":" + property.Value;
-                i++;
+                sendData += ":" + property.Value;
             }
             sendData += "#";
             log("send to UDP");
