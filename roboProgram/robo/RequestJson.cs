@@ -27,9 +27,9 @@ namespace robo
         {
             string[] template = null;
 
-            if (litera.Equals("T")) template = this.trafficLights;
+            if (litera.Equals("L")) template = this.trafficLights;
             if (litera.Equals("R")) template = this.remotTerminal;
-            if (litera.Equals("M")) template = this.manipulator;
+            if (litera.Equals("G")) template = this.manipulator;
             if (litera.Equals("P")) template = this.politasier;
 
 

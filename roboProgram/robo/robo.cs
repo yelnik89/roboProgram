@@ -222,7 +222,7 @@ namespace robo
                     result = e.Message;
                 }
             });
-            log(result);
+            log("result: " + result);
             if (error) return "error";
             return result;
 
@@ -310,8 +310,8 @@ namespace robo
                 {
                     if (await cicleGetPropertyAsync(teamThings[4], teamThings[0], teamThings[5]))
                     {
-                        data = sendData(teamThings);   // вылетает ошибка на втором круге
-                        //sendUDP(teamThings[2], int.Parse(teamThings[3]), data);
+                        data = sendData(teamThings);
+                        sendUDP(teamThings[2], int.Parse(teamThings[3]), data);
                         if (!this.teamCicleRun) break;
                     }
                 }
@@ -322,10 +322,9 @@ namespace robo
         private async Task<bool> cicleGetPropertyAsync(string name, string thingType, string servisName)
         {
             string json = await getPropertyAsync(name, thingType, servisName);
-            log(json);
             if (!json.Equals("error"))
             {
-                if (this.thingsProperty.ContainsKey(name)) this.thingsProperty[name] = this.factory.getThing(json);
+                if (this.thingsProperty.ContainsKey(name)) this.thingsProperty[name] = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
                 else this.thingsProperty.Add(name, JsonConvert.DeserializeObject<Dictionary<string, string>>(json));
                 return true;
             }
@@ -340,10 +339,22 @@ namespace robo
                 sendData += ":" + property.Value;
             }
             sendData += "#";
+            sendData = sendData.ToLower();
             log("send to UDP");
             log(sendData);
-            byte[] data = Encoding.Unicode.GetBytes(sendData);
+            byte[] data = toByte(sendData);
             return data;
+        }
+
+        private byte[] toByte(string sendData)
+        {
+            int LengthOfString = sendData.Length;
+            byte[] sendToUDP = new byte[LengthOfString];
+            for (int i = 0; i < LengthOfString; i++)
+            {
+                sendToUDP[i] = Convert.ToByte(sendData[i]);
+            }
+            return sendToUDP;
         }
 
         private void sendUDP(string ip, int port, byte[] data)
