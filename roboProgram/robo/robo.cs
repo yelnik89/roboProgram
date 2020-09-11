@@ -24,9 +24,11 @@ namespace robo
         private string teamName;
         private ThingsFactory factory;
         private AllThingsJson.Rootobject allThings;
-        private Dictionary<string, Dictionary<string, string>> thingsProperty;
+        private Dictionary<string, string>[] thingsPropertyInServer;
+        private Dictionary<string, string>[] thingsPropertyInPolygon;
         private List<string[]> teamSettings;
         private RequestJson json;
+        private UdpClient[] listeningUdpClients;
 
 
 
@@ -48,7 +50,7 @@ namespace robo
                 if (this.allThings != null)
                 {
                     //CicleRequestStart.Enabled = true;
-                    this.thingsProperty = new Dictionary<string, Dictionary<string, string>>(this.allThings.rows.Length);
+                    this.thingsPropertyInServer = new Dictionary<string, string>[this.allThings.rows.Length];
                     fullingThingList(this.allThings);
                 }
             }
@@ -57,7 +59,7 @@ namespace robo
         private async void thingList_SelectedIndexChanged(object sender, EventArgs e)
         {
             string thingName = (string)thingList.SelectedItem;
-            string json = await getPropertyAsync(thingName, "", "");                       //в метод вставлена заглушка, возможно этот метод здесь вообще вызываться не будет
+            string json = await getPropertyAsync(thingName, "", "");    //в метод вставлена заглушка, возможно этот метод здесь вообще вызываться не будет
             if (!json.Equals("Error"))
             {
                 Dictionary<string, string> property = this.factory.getThing(json);
@@ -149,13 +151,6 @@ namespace robo
             req.Accept = "application/json";
 
             return req;
-        }
-
-        private void paramFieldClin()
-        {
-            ThingName.Text = null;
-            ParamsValues.Text = null;
-            ParamsNames.Text = null;
         }
 
         private void authorization(HttpWebRequest req)
@@ -297,21 +292,23 @@ namespace robo
                 }
                 await Task.Delay(temp());
             }
-            
         }
 
         private async void cicleMethod(List<string[]> teamList)
         {
             byte[] data;
             Messenger messenger = new Messenger(AuthInfo(), Address(), AuthorizationType());
+            int teamListLenght = teamList.Count();
             while (this.teamCicleRun)
             {
-                foreach (string[] teamThings in teamList)
+                for ( int i = 0; i < teamListLenght; i++)
                 {
-                    if (await cicleGetPropertyAsync(teamThings[4], teamThings[0], teamThings[5]))
+                    string[] thing = teamList[i];
+                    if (await cicleGetPropertyAsync(i, thing[4], thing[0], thing[5]))
                     {
-                        data = sendData(teamThings);
-                        sendUDP(teamThings[2], int.Parse(teamThings[3]), data);
+                        data = sendData(thing, i);
+                        sendUDP(thing[2], int.Parse(thing[3]), data);
+                        reseiveUdpAnswer(i);
                         if (!this.teamCicleRun) break;
                     }
                 }
@@ -319,29 +316,21 @@ namespace robo
             }
         }
 
-        private async Task<bool> cicleGetPropertyAsync(string name, string thingType, string servisName)
+        private async Task<bool> cicleGetPropertyAsync(int index, string name, string thingType, string servisName)
         {
             string json = await getPropertyAsync(name, thingType, servisName);
             if (!json.Equals("error"))
             {
-                if (this.thingsProperty.ContainsKey(name)) this.thingsProperty[name] = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
-                else this.thingsProperty.Add(name, JsonConvert.DeserializeObject<Dictionary<string, string>>(json));
+                this.thingsPropertyInServer[index] = JsonConvert.DeserializeObject<Dictionary<string, string>>(json);
                 return true;
             }
             return false;
         }
 
-        private byte[] sendData(string[] thing)
+        private byte[] sendData(string[] thing, int index)
         {
-            string sendData = thing[0];
-            foreach (KeyValuePair<string, string> property in this.thingsProperty[thing[4]])
-            {
-                sendData += ":" + property.Value;
-            }
-            sendData += "#";
-            sendData = sendData.ToLower();
-            log("send to UDP");
-            log(sendData);
+            string sendData = collectStringData(thing, index);
+            log("send to UDP: " + sendData);
             byte[] data = toByte(sendData);
             return data;
         }
@@ -357,17 +346,59 @@ namespace robo
             return sendToUDP;
         }
 
+        private string collectStringData(string[] thing, int index)
+        {
+            string data = thing[0];
+            foreach (KeyValuePair<string, string> property in this.thingsPropertyInServer[index])
+            {
+                data += ":" + property.Value;
+            }
+            if (thing[0].Equals("R")) data += ":0:test";
+            data += "#";
+            data = data.ToLower();
+            return data;
+        }
+
         private void sendUDP(string ip, int port, byte[] data)
         {
             Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
             EndPoint remotePoint = new IPEndPoint(IPAddress.Parse(ip), port);
             socket.SendTo(data, remotePoint);
+            socket.Close();
+        }
+
+        private async Task<string> reseiveUdpAnswer(int indexOfThing)
+        {
+            UdpClient receiver = this.listeningUdpClients[indexOfThing];
+            IPEndPoint remoteIP = null;
+            string message = "error";
+            await Task.Run(() =>
+            {
+                try
+                {
+                    while (teamCicleRun)
+                    {
+                        byte[] data = receiver.Receive(ref remoteIP);
+                        message = Encoding.Unicode.GetString(data);
+                        log(message);
+                    }
+                        receiver.Close();
+                }
+                catch (Exception e)
+                {
+                    log(e.Message);
+                    receiver.Close();
+                }
+            });
+
+            return message;
         }
 
         private void Team1_Click(object sender, EventArgs e)
         {
             itemInfo(Team1.Text);
             fullingTeamThingsList(this.teamSettings);
+
         }
 
         private void itemInfo(string teamName)
@@ -379,7 +410,8 @@ namespace robo
                 this.teamSettings = reader.itemInfo(teamName);
                 TeamStart.Text = teamName;
                 this.teamName = teamName;
-                this.thingsProperty = new Dictionary<string, Dictionary<string, string>>(teamSettings.Count);
+                this.thingsPropertyInServer = new Dictionary <string, string> [teamSettings.Count];
+                this.listeningUdpClients = new UdpClient[teamSettings.Count];
             }
             catch (Exception exception)
             {
@@ -389,9 +421,12 @@ namespace robo
 
         private void fullingTeamThingsList(List<string[]> teamList)
         {
-            foreach (string[] s in teamList)
+            int count = teamList.Count;
+            for (int i = 0; i < count; i++)
             {
-                TeamThingsList.Items.Add(s[4]);
+                string[] thing = teamList[i];
+                TeamThingsList.Items.Add(thing[4]);
+                this.listeningUdpClients[i] = new UdpClient(thing[2], int.Parse(thing[3]));
             }
             TeamThingsList.SelectedIndex = 0;
         }
@@ -473,6 +508,13 @@ namespace robo
         {
             if (Temp.Text.Length == 0) return 0;
             else return int.Parse(Temp.Text);
+        }
+
+        private void paramFieldClin()
+        {
+            ThingName.Text = null;
+            ParamsValues.Text = null;
+            ParamsNames.Text = null;
         }
 
         private void log(string text)
