@@ -217,7 +217,7 @@ namespace robo
                     result = e.Message;
                 }
             });
-            log("result: " + result);
+            log("resieve from server: " + result);
             if (error) return "error";
             return result;
 
@@ -308,7 +308,7 @@ namespace robo
                     {
                         data = sendData(thing, i);
                         sendUDP(thing[2], int.Parse(thing[3]), data);
-                        reseiveUdpAnswer(i);
+                        getPropertyFromePoligon(i);
                         if (!this.teamCicleRun) break;
                     }
                 }
@@ -367,31 +367,51 @@ namespace robo
             socket.Close();
         }
 
+        private async void getPropertyFromePoligon(int indexOfThing)
+        {
+            string message = await reseiveUdpAnswer(indexOfThing);
+            if (!message.Equals("error"))
+            {
+                message = trimer(message);
+                string[] data = message.Split(':');
+                for (int i = 0; i < data.Length; i++) ;
+            }
+        }
+
         private async Task<string> reseiveUdpAnswer(int indexOfThing)
         {
             UdpClient receiver = this.listeningUdpClients[indexOfThing];
             IPEndPoint remoteIP = null;
             string message = "error";
+            bool error = true;
             await Task.Run(() =>
             {
                 try
                 {
-                    while (teamCicleRun)
+                    while (this.teamCicleRun)
                     {
                         byte[] data = receiver.Receive(ref remoteIP);
                         message = Encoding.Unicode.GetString(data);
-                        log(message);
                     }
-                        receiver.Close();
+                    error = false;
                 }
                 catch (Exception e)
                 {
-                    log(e.Message);
+                    message = e.Message;
+                }
+                finally
+                {
                     receiver.Close();
                 }
             });
+            log("reseive from poligon:" + message);
+            if (!error) return message;
+            return "error";
+        }
 
-            return message;
+        private void writePropertyFromePoligon(string message)
+        {
+
         }
 
         private void Team1_Click(object sender, EventArgs e)
@@ -411,6 +431,7 @@ namespace robo
                 TeamStart.Text = teamName;
                 this.teamName = teamName;
                 this.thingsPropertyInServer = new Dictionary <string, string> [teamSettings.Count];
+                this.thingsPropertyInPolygon = new Dictionary<string, string>[teamSettings.Count];
                 this.listeningUdpClients = new UdpClient[teamSettings.Count];
             }
             catch (Exception exception)
@@ -533,6 +554,15 @@ namespace robo
             {
                 e.Handled = true;
             }
+        }
+
+        private string trimer(string s)
+        {
+            s.Trim(' ');
+            s.Trim('\n');
+            s.Trim('#');
+            s.Trim(' ');
+            return s;
         }
     }
 }

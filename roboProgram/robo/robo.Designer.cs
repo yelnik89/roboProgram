@@ -61,38 +61,38 @@
             // KeyText
             // 
             this.KeyText.AutoSize = true;
-            this.KeyText.Location = new System.Drawing.Point(14, 86);
+            this.KeyText.Location = new System.Drawing.Point(12, 69);
             this.KeyText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.KeyText.Name = "KeyText";
-            this.KeyText.Size = new System.Drawing.Size(103, 20);
+            this.KeyText.Size = new System.Drawing.Size(88, 17);
             this.KeyText.TabIndex = 2;
             this.KeyText.Text = "ключ (UUID)";
             // 
             // uuid
             // 
-            this.uuid.Location = new System.Drawing.Point(129, 82);
-            this.uuid.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.uuid.Location = new System.Drawing.Point(115, 66);
+            this.uuid.Margin = new System.Windows.Forms.Padding(4);
             this.uuid.Name = "uuid";
-            this.uuid.Size = new System.Drawing.Size(352, 26);
+            this.uuid.Size = new System.Drawing.Size(313, 22);
             this.uuid.TabIndex = 3;
             this.uuid.Text = "f8163f2b-e748-402c-8396-cb9b8eef6a80";
             // 
             // logBox
             // 
-            this.logBox.Location = new System.Drawing.Point(15, 186);
-            this.logBox.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.logBox.Location = new System.Drawing.Point(13, 149);
+            this.logBox.Margin = new System.Windows.Forms.Padding(4);
             this.logBox.Name = "logBox";
             this.logBox.ReadOnly = true;
-            this.logBox.Size = new System.Drawing.Size(808, 953);
+            this.logBox.Size = new System.Drawing.Size(719, 506);
             this.logBox.TabIndex = 4;
             this.logBox.Text = "";
             // 
             // sendReqest
             // 
-            this.sendReqest.Location = new System.Drawing.Point(508, 78);
-            this.sendReqest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.sendReqest.Location = new System.Drawing.Point(452, 62);
+            this.sendReqest.Margin = new System.Windows.Forms.Padding(4);
             this.sendReqest.Name = "sendReqest";
-            this.sendReqest.Size = new System.Drawing.Size(162, 35);
+            this.sendReqest.Size = new System.Drawing.Size(144, 28);
             this.sendReqest.TabIndex = 5;
             this.sendReqest.Text = "отправить запрос";
             this.sendReqest.UseVisualStyleBackColor = true;
@@ -100,10 +100,10 @@
             // 
             // myIP
             // 
-            this.myIP.Location = new System.Drawing.Point(687, 78);
-            this.myIP.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.myIP.Location = new System.Drawing.Point(611, 62);
+            this.myIP.Margin = new System.Windows.Forms.Padding(4);
             this.myIP.Name = "myIP";
-            this.myIP.Size = new System.Drawing.Size(138, 35);
+            this.myIP.Size = new System.Drawing.Size(123, 28);
             this.myIP.TabIndex = 6;
             this.myIP.Text = "запрос на myIP";
             this.myIP.UseVisualStyleBackColor = true;
@@ -111,77 +111,77 @@
             // 
             // port
             // 
-            this.port.Location = new System.Drawing.Point(290, 128);
-            this.port.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.port.Location = new System.Drawing.Point(258, 102);
+            this.port.Margin = new System.Windows.Forms.Padding(4);
             this.port.Name = "port";
-            this.port.Size = new System.Drawing.Size(60, 26);
+            this.port.Size = new System.Drawing.Size(54, 22);
             this.port.TabIndex = 7;
             this.port.Text = "9080";
             // 
             // portLabel
             // 
             this.portLabel.AutoSize = true;
-            this.portLabel.Location = new System.Drawing.Point(228, 132);
+            this.portLabel.Location = new System.Drawing.Point(203, 106);
             this.portLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.portLabel.Name = "portLabel";
-            this.portLabel.Size = new System.Drawing.Size(52, 20);
+            this.portLabel.Size = new System.Drawing.Size(45, 17);
             this.portLabel.TabIndex = 8;
             this.portLabel.Text = "Порт:";
             // 
             // ipLabel
             // 
             this.ipLabel.AutoSize = true;
-            this.ipLabel.Location = new System.Drawing.Point(16, 132);
+            this.ipLabel.Location = new System.Drawing.Point(14, 106);
             this.ipLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ipLabel.Name = "ipLabel";
-            this.ipLabel.Size = new System.Drawing.Size(28, 20);
+            this.ipLabel.Size = new System.Drawing.Size(24, 17);
             this.ipLabel.TabIndex = 9;
             this.ipLabel.Text = "IP:";
             // 
             // ip
             // 
-            this.ip.Location = new System.Drawing.Point(56, 128);
-            this.ip.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ip.Location = new System.Drawing.Point(50, 102);
+            this.ip.Margin = new System.Windows.Forms.Padding(4);
             this.ip.Name = "ip";
-            this.ip.Size = new System.Drawing.Size(154, 26);
+            this.ip.Size = new System.Drawing.Size(137, 22);
             this.ip.TabIndex = 10;
             this.ip.Text = "94.159.91.166";
             // 
             // login
             // 
-            this.login.Location = new System.Drawing.Point(90, 37);
-            this.login.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.login.Location = new System.Drawing.Point(80, 30);
+            this.login.Margin = new System.Windows.Forms.Padding(4);
             this.login.Name = "login";
-            this.login.Size = new System.Drawing.Size(217, 26);
+            this.login.Size = new System.Drawing.Size(193, 22);
             this.login.TabIndex = 11;
             // 
             // LoginText
             // 
             this.LoginText.AutoSize = true;
-            this.LoginText.Location = new System.Drawing.Point(14, 42);
+            this.LoginText.Location = new System.Drawing.Point(12, 34);
             this.LoginText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LoginText.Name = "LoginText";
-            this.LoginText.Size = new System.Drawing.Size(55, 20);
+            this.LoginText.Size = new System.Drawing.Size(47, 17);
             this.LoginText.TabIndex = 12;
             this.LoginText.Text = "Логин";
             // 
             // passwordText
             // 
             this.passwordText.AutoSize = true;
-            this.passwordText.Location = new System.Drawing.Point(356, 42);
+            this.passwordText.Location = new System.Drawing.Point(316, 34);
             this.passwordText.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.passwordText.Name = "passwordText";
-            this.passwordText.Size = new System.Drawing.Size(67, 20);
+            this.passwordText.Size = new System.Drawing.Size(57, 17);
             this.passwordText.TabIndex = 13;
             this.passwordText.Text = "Пароль";
             // 
             // password
             // 
-            this.password.Location = new System.Drawing.Point(432, 37);
-            this.password.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.password.Location = new System.Drawing.Point(384, 30);
+            this.password.Margin = new System.Windows.Forms.Padding(4);
             this.password.Name = "password";
             this.password.PasswordChar = '*';
-            this.password.Size = new System.Drawing.Size(391, 26);
+            this.password.Size = new System.Drawing.Size(348, 22);
             this.password.TabIndex = 14;
             // 
             // authorizationType
@@ -191,75 +191,76 @@
             this.authorizationType.Items.AddRange(new object[] {
             "по ключу",
             "по логину"});
-            this.authorizationType.Location = new System.Drawing.Point(522, 126);
+            this.authorizationType.Location = new System.Drawing.Point(464, 101);
+            this.authorizationType.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.authorizationType.Name = "authorizationType";
-            this.authorizationType.Size = new System.Drawing.Size(122, 28);
+            this.authorizationType.Size = new System.Drawing.Size(109, 24);
             this.authorizationType.TabIndex = 15;
             // 
             // autorizationLabel
             // 
             this.autorizationLabel.AutoSize = true;
-            this.autorizationLabel.Location = new System.Drawing.Point(375, 132);
+            this.autorizationLabel.Location = new System.Drawing.Point(333, 106);
             this.autorizationLabel.Name = "autorizationLabel";
-            this.autorizationLabel.Size = new System.Drawing.Size(138, 20);
+            this.autorizationLabel.Size = new System.Drawing.Size(122, 17);
             this.autorizationLabel.TabIndex = 16;
             this.autorizationLabel.Text = "Тип авторизации";
             // 
             // thingList
             // 
             this.thingList.FormattingEnabled = true;
-            this.thingList.Location = new System.Drawing.Point(1251, 37);
-            this.thingList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.thingList.Location = new System.Drawing.Point(1112, 30);
+            this.thingList.Margin = new System.Windows.Forms.Padding(4);
             this.thingList.Name = "thingList";
-            this.thingList.Size = new System.Drawing.Size(286, 28);
+            this.thingList.Size = new System.Drawing.Size(255, 24);
             this.thingList.TabIndex = 17;
             this.thingList.SelectedIndexChanged += new System.EventHandler(this.thingList_SelectedIndexChanged);
             // 
             // ThingNameLabel
             // 
             this.ThingNameLabel.AutoSize = true;
-            this.ThingNameLabel.Location = new System.Drawing.Point(1144, 132);
+            this.ThingNameLabel.Location = new System.Drawing.Point(1017, 106);
             this.ThingNameLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.ThingNameLabel.Name = "ThingNameLabel";
-            this.ThingNameLabel.Size = new System.Drawing.Size(94, 20);
+            this.ThingNameLabel.Size = new System.Drawing.Size(85, 17);
             this.ThingNameLabel.TabIndex = 90;
             this.ThingNameLabel.Text = "Thing Name";
             // 
             // ThingName
             // 
-            this.ThingName.Location = new System.Drawing.Point(1251, 128);
-            this.ThingName.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ThingName.Location = new System.Drawing.Point(1112, 102);
+            this.ThingName.Margin = new System.Windows.Forms.Padding(4);
             this.ThingName.Name = "ThingName";
-            this.ThingName.Size = new System.Drawing.Size(286, 26);
+            this.ThingName.Size = new System.Drawing.Size(255, 22);
             this.ThingName.TabIndex = 91;
             // 
             // ParamsNames
             // 
-            this.ParamsNames.Location = new System.Drawing.Point(1149, 186);
-            this.ParamsNames.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ParamsNames.Location = new System.Drawing.Point(1021, 149);
+            this.ParamsNames.Margin = new System.Windows.Forms.Padding(4);
             this.ParamsNames.Name = "ParamsNames";
             this.ParamsNames.ReadOnly = true;
-            this.ParamsNames.Size = new System.Drawing.Size(164, 953);
+            this.ParamsNames.Size = new System.Drawing.Size(146, 506);
             this.ParamsNames.TabIndex = 92;
             this.ParamsNames.Text = "";
             // 
             // ParamsValues
             // 
-            this.ParamsValues.Location = new System.Drawing.Point(1324, 186);
-            this.ParamsValues.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.ParamsValues.Location = new System.Drawing.Point(1177, 149);
+            this.ParamsValues.Margin = new System.Windows.Forms.Padding(4);
             this.ParamsValues.Name = "ParamsValues";
             this.ParamsValues.ReadOnly = true;
-            this.ParamsValues.Size = new System.Drawing.Size(212, 953);
+            this.ParamsValues.Size = new System.Drawing.Size(189, 506);
             this.ParamsValues.TabIndex = 93;
             this.ParamsValues.Text = "";
             // 
             // CicleRequestStart
             // 
             this.CicleRequestStart.Enabled = false;
-            this.CicleRequestStart.Location = new System.Drawing.Point(860, 86);
-            this.CicleRequestStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.CicleRequestStart.Location = new System.Drawing.Point(764, 69);
+            this.CicleRequestStart.Margin = new System.Windows.Forms.Padding(4);
             this.CicleRequestStart.Name = "CicleRequestStart";
-            this.CicleRequestStart.Size = new System.Drawing.Size(237, 72);
+            this.CicleRequestStart.Size = new System.Drawing.Size(211, 58);
             this.CicleRequestStart.TabIndex = 94;
             this.CicleRequestStart.Text = "START";
             this.CicleRequestStart.UseVisualStyleBackColor = true;
@@ -267,10 +268,10 @@
             // 
             // Temp
             // 
-            this.Temp.Location = new System.Drawing.Point(1030, 37);
-            this.Temp.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Temp.Location = new System.Drawing.Point(916, 30);
+            this.Temp.Margin = new System.Windows.Forms.Padding(4);
             this.Temp.Name = "Temp";
-            this.Temp.Size = new System.Drawing.Size(64, 26);
+            this.Temp.Size = new System.Drawing.Size(57, 22);
             this.Temp.TabIndex = 95;
             this.Temp.Text = "1000";
             this.Temp.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Temp_KeyPress);
@@ -278,19 +279,19 @@
             // TextToTime
             // 
             this.TextToTime.AutoSize = true;
-            this.TextToTime.Location = new System.Drawing.Point(855, 42);
+            this.TextToTime.Location = new System.Drawing.Point(760, 34);
             this.TextToTime.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.TextToTime.Name = "TextToTime";
-            this.TextToTime.Size = new System.Drawing.Size(164, 20);
+            this.TextToTime.Size = new System.Drawing.Size(143, 17);
             this.TextToTime.TabIndex = 96;
             this.TextToTime.Text = "частота опроса в мс";
             // 
             // Team1
             // 
-            this.Team1.Location = new System.Drawing.Point(1570, 32);
-            this.Team1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Team1.Location = new System.Drawing.Point(1396, 26);
+            this.Team1.Margin = new System.Windows.Forms.Padding(4);
             this.Team1.Name = "Team1";
-            this.Team1.Size = new System.Drawing.Size(112, 35);
+            this.Team1.Size = new System.Drawing.Size(100, 28);
             this.Team1.TabIndex = 97;
             this.Team1.Text = "Team1";
             this.Team1.UseVisualStyleBackColor = true;
@@ -298,10 +299,10 @@
             // 
             // TeamStart
             // 
-            this.TeamStart.Location = new System.Drawing.Point(860, 186);
-            this.TeamStart.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TeamStart.Location = new System.Drawing.Point(764, 149);
+            this.TeamStart.Margin = new System.Windows.Forms.Padding(4);
             this.TeamStart.Name = "TeamStart";
-            this.TeamStart.Size = new System.Drawing.Size(237, 78);
+            this.TeamStart.Size = new System.Drawing.Size(211, 62);
             this.TeamStart.TabIndex = 98;
             this.TeamStart.UseVisualStyleBackColor = true;
             this.TeamStart.Click += new System.EventHandler(this.TeamStart_Click);
@@ -309,37 +310,37 @@
             // AllThingsLabel
             // 
             this.AllThingsLabel.AutoSize = true;
-            this.AllThingsLabel.Location = new System.Drawing.Point(1144, 42);
+            this.AllThingsLabel.Location = new System.Drawing.Point(1017, 34);
             this.AllThingsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.AllThingsLabel.Name = "AllThingsLabel";
-            this.AllThingsLabel.Size = new System.Drawing.Size(96, 20);
+            this.AllThingsLabel.Size = new System.Drawing.Size(86, 17);
             this.AllThingsLabel.TabIndex = 99;
             this.AllThingsLabel.Text = "All things list";
             // 
             // TeamThingsList
             // 
             this.TeamThingsList.FormattingEnabled = true;
-            this.TeamThingsList.Location = new System.Drawing.Point(1251, 82);
-            this.TeamThingsList.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.TeamThingsList.Location = new System.Drawing.Point(1112, 66);
+            this.TeamThingsList.Margin = new System.Windows.Forms.Padding(4);
             this.TeamThingsList.Name = "TeamThingsList";
-            this.TeamThingsList.Size = new System.Drawing.Size(286, 28);
+            this.TeamThingsList.Size = new System.Drawing.Size(255, 24);
             this.TeamThingsList.TabIndex = 100;
             // 
             // TeamThingsLabel
             // 
             this.TeamThingsLabel.AutoSize = true;
-            this.TeamThingsLabel.Location = new System.Drawing.Point(1144, 86);
+            this.TeamThingsLabel.Location = new System.Drawing.Point(1017, 69);
             this.TeamThingsLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.TeamThingsLabel.Name = "TeamThingsLabel";
-            this.TeamThingsLabel.Size = new System.Drawing.Size(96, 20);
+            this.TeamThingsLabel.Size = new System.Drawing.Size(86, 17);
             this.TeamThingsLabel.TabIndex = 101;
             this.TeamThingsLabel.Text = "Team things";
             // 
             // robo
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1828, 1160);
+            this.ClientSize = new System.Drawing.Size(1514, 676);
             this.Controls.Add(this.TeamThingsLabel);
             this.Controls.Add(this.TeamThingsList);
             this.Controls.Add(this.AllThingsLabel);
@@ -368,7 +369,7 @@
             this.Controls.Add(this.uuid);
             this.Controls.Add(this.KeyText);
             this.Controls.Add(this.thingList);
-            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "robo";
             this.Text = "robo";
             this.ResumeLayout(false);
