@@ -87,7 +87,7 @@ namespace robo
         private async Task<string> getPropertyAsync(string name, string thingType, string servisName)
         {
             log("get Property");
-            string thingReq = this.json.getJson(thingType);
+            string thingReq = this.json.getJsonFromServer(thingType);
             HttpWebRequest req = request("POST", PropertyAddress(name, servisName));
             string json = await sendHttpRequestAsync(req, thingReq);
             return json;
@@ -308,7 +308,7 @@ namespace robo
                     {
                         data = sendData(thing, i);
                         sendUDP(thing[2], int.Parse(thing[3]), data);
-                        getPropertyFromePoligon(i);
+                        reseiveUdpAnswer(i);
                         if (!this.teamCicleRun) break;
                     }
                 }
@@ -367,33 +367,37 @@ namespace robo
             socket.Close();
         }
 
-        private async void getPropertyFromePoligon(int indexOfThing)
+        private void writePropertyFromePoligon(int indexOfThing, string message)
         {
-            string message = await reseiveUdpAnswer(indexOfThing);
             if (!message.Equals("error"))
             {
                 message = trimer(message);
+                this.thingsPropertyInPolygon[indexOfThing] = new Dictionary<string, string>();
                 string[] data = message.Split(':');
-                for (int i = 0; i < data.Length; i++) ;
+                string[] template = this.json.getTemplateFromPoligon(data[0]);
+                for (int i = 2; i < data.Length; i++)
+                {
+                    this.thingsPropertyInPolygon[indexOfThing].Add(template[i-2], data[i]);
+                }
             }
         }
 
-        private async Task<string> reseiveUdpAnswer(int indexOfThing)
+        private async void reseiveUdpAnswer(int indexOfThing)
         {
             UdpClient receiver = this.listeningUdpClients[indexOfThing];
             IPEndPoint remoteIP = null;
-            string message = "error";
-            bool error = true;
+            string message = "";
             await Task.Run(() =>
             {
                 try
                 {
-                    while (this.teamCicleRun)
+                    if (this.teamCicleRun)
                     {
                         byte[] data = receiver.Receive(ref remoteIP);
                         message = Encoding.Unicode.GetString(data);
+                        //message = "R:242:1:1:0:2#\n";
+                        writePropertyFromePoligon(indexOfThing, message);
                     }
-                    error = false;
                 }
                 catch (Exception e)
                 {
@@ -405,8 +409,6 @@ namespace robo
                 }
             });
             log("reseive from poligon:" + message);
-            if (!error) return message;
-            return "error";
         }
 
         private void writePropertyFromePoligon(string message)
@@ -446,7 +448,7 @@ namespace robo
             for (int i = 0; i < count; i++)
             {
                 string[] thing = teamList[i];
-                TeamThingsList.Items.Add(thing[4]);
+                this.TeamThingsList.Items.Add(thing[4]);
                 this.listeningUdpClients[i] = new UdpClient(thing[2], int.Parse(thing[3]));
             }
             TeamThingsList.SelectedIndex = 0;
@@ -463,6 +465,10 @@ namespace robo
 
         private void startTeamCicleRequest()
         {
+            int count = this.teamSettings.Count;
+            for (int i = 0; i < count; i++)
+                this.listeningUdpClients[i] = new UdpClient(this.teamSettings[i][2], int.Parse(this.teamSettings[i][3]));
+
             TeamStart.Text = "STOP";
             this.teamCicleRun = true;
             cicleMethod(this.teamSettings);
@@ -558,10 +564,10 @@ namespace robo
 
         private string trimer(string s)
         {
-            s.Trim(' ');
-            s.Trim('\n');
-            s.Trim('#');
-            s.Trim(' ');
+            s = s.Trim(' ');
+            s = s.Trim('\n');
+            s = s.Trim('#');
+            s = s.Trim(' ');
             return s;
         }
     }

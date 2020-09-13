@@ -9,31 +9,41 @@ namespace robo
 {
     class RequestJson
     {
-        private string[] trafficLights = { "l1", "l2", "l3", "l4" };
-        private string[] remotTerminal = { "l1", "l2", "l3", "l4" };
-        private string[] manipulator = { "n", "s", "p",
+        private string[] trafficLightsServer = { "l1", "l2", "l3", "l4" };
+        private string[] remotTerminalServer = { "l1", "l2", "l3", "l4" };
+        private string[] manipulatorServer = { "n", "s", "p",
             "m1", "m2", "m3", "m4", "m5", "m6",
             "l0", "l1", "l2", "l3", "l4", "l5", "l6",
             "t1", "t2", "t3", "t4", "t5", "t6",
             "b1", "b2", "b3", "t", "l" };
-        private string[] politasier = { "n", "s", "p",
+        private string[] politasierServer = { "n", "s", "p",
             "m1", "m2", "m3", "m4", "m5",
             "l0", "l1", "l2", "l3", "l4", "l5",
             "t1", "t2", "t3", "t4", "t5",
             "b1", "b2", "b3", "t", "l" };
-        
 
-        public string getJson(string litera)
+        private string[] remotTerminalPoligon = { "p", "b1", "b2", "b3", };
+
+
+
+        public string getJsonFromServer(string litera)
         {
             string[] template = null;
 
-            if (litera.Equals("L")) template = this.trafficLights;
-            if (litera.Equals("R")) template = this.remotTerminal;
-            if (litera.Equals("G")) template = this.manipulator;
-            if (litera.Equals("P")) template = this.politasier;
+            if (litera.Equals("L")) template = this.trafficLightsServer;
+            if (litera.Equals("R")) template = this.remotTerminalServer;
+            if (litera.Equals("G")) template = this.manipulatorServer;
+            if (litera.Equals("P")) template = this.politasierServer;
 
 
             return JsonConvert.SerializeObject(template);
+        }
+
+        public string[] getTemplateFromPoligon(string lintera)
+        {
+            string[] template = null;
+            if (lintera.Equals("R")) template = this.remotTerminalPoligon;
+            return template;
         }
     }
 }
