@@ -296,7 +296,6 @@ namespace robo
 
         private async void cicleMethod(List<string[]> teamList)
         {
-            byte[] data;
             Messenger messenger = new Messenger(AuthInfo(), Address(), AuthorizationType());
             int teamListLenght = teamList.Count();
             while (this.teamCicleRun)
@@ -306,14 +305,25 @@ namespace robo
                     string[] thing = teamList[i];
                     if (await cicleGetPropertyAsync(i, thing[4], thing[0], thing[5]))
                     {
-                        data = sendData(thing, i);
-                        sendUDP(thing[2], int.Parse(thing[3]), data);
-                        reseiveUdpAnswer(i);
+                        udpController(i, thing);
                         if (!this.teamCicleRun) break;
                     }
                 }
                 await Task.Delay(temp());
             }
+        }
+
+        private void udpController(int indexOfThing, string[] thing)
+        {
+            byte[] data = sendData(thing, indexOfThing);
+            sendUDP(thing[2], int.Parse(thing[3]), data);
+            transferUdpData(indexOfThing);
+        }
+
+        private async void transferUdpData(int indexOfThing)
+        {
+            await reseiveUdpAnswer(indexOfThing);
+            sendPropertyToServer(indexOfThing);
         }
 
         private async Task<bool> cicleGetPropertyAsync(int index, string name, string thingType, string servisName)
@@ -382,11 +392,12 @@ namespace robo
             }
         }
 
-        private async void reseiveUdpAnswer(int indexOfThing)
+        private async Task<bool> reseiveUdpAnswer(int indexOfThing)
         {
             UdpClient receiver = this.listeningUdpClients[indexOfThing];
             IPEndPoint remoteIP = null;
             string message = "";
+            bool error = true;
             await Task.Run(() =>
             {
                 try
@@ -397,6 +408,7 @@ namespace robo
                         message = Encoding.Unicode.GetString(data);
                         //message = "R:242:1:1:0:2#\n";
                         writePropertyFromePoligon(indexOfThing, message);
+                        error = false;
                     }
                 }
                 catch (Exception e)
@@ -409,11 +421,26 @@ namespace robo
                 }
             });
             log("reseive from poligon:" + message);
+            return !error;
         }
 
-        private void writePropertyFromePoligon(string message)
+        private void sendPropertyToServer(int indexOfThing)
         {
+            log("send data to server");
+            HttpWebRequest req = request("POST", PropertyAddress(teamSettings[indexOfThing][4], teamSettings[indexOfThing][5]));
+            string json = JsonConvert.SerializeObject(this.thingsPropertyInPolygon[indexOfThing]);
+            sendHttpRequestAsync(req, json);
+        }
 
+        private string receiveDataFromePoligon(UdpClient receiver, int indexOfThing)
+        {
+            string message = "";
+            IPEndPoint remoteIP = null;
+            byte[] data = receiver.Receive(ref remoteIP);
+            message = Encoding.Unicode.GetString(data);
+            //message = "R:242:1:1:0:2#\n";
+            writePropertyFromePoligon(indexOfThing, message);
+            return message;
         }
 
         private void Team1_Click(object sender, EventArgs e)
